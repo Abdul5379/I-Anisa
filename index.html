@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Love Anisa - REST Anisa for Developers</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: "Arial", sans-serif;
+        }
+
+        body {
+          line-height: 1.6;
+          color: #333;
+        }
+
+        a {
+          text-decoration: none;
+          color: inherit;
+        }
+
+        button {
+          cursor: pointer;
+          border: none;
+          outline: none;
+        }
+
+        /* Navbar */
+        .navbar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 15px 5%;
+          background-color: white;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+          font-size: 24px;
+          font-weight: bold;
+        }
+
+        .heart {
+          color: #006064;
+        }
+
+        .nav-links {
+          display: flex;
+          gap: 20px;
+        }
+
+        .nav-links a {
+          font-size: 14px;
+          font-weight: 600;
+          color: #555;
+        }
+
+        .auth-buttons {
+          display: flex;
+          gap: 10px;
+        }
+
+        .login {
+          padding: 8px 15px;
+          color: #006064;
+          font-weight: bold;
+        }
+
+        .signup {
+          padding: 8px 15px;
+          background-color: #006064;
+          color: white;
+          border-radius: 4px;
+          font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+          background-color: #006064;
+          color: white;
+          padding: 80px 5%;
+          background-image: linear-gradient(rgba(0, 96, 100, 0.9), rgba(0, 96, 100, 0.9)),
+            url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80");
+          background-size: cover;
+          background-position: center;
+        }
+
+        .hero-content {
+          max-width: 800px;
+          margin: 0 auto;
+          text-align: center;
+        }
+
+        .hero h1 {
+          font-size: 42px;
+          margin-bottom: 20px;
+          line-height: 1.2;
+        }
+
+        .hero p {
+          font-size: 18px;
+          margin-bottom: 30px;
+        }
+
+        .tech-stack {
+          display: flex;
+          justify-content: center;
+          gap: 15px;
+          margin-bottom: 30px;
+          flex-wrap: wrap;
+        }
+
+        .tech-stack span {
+          padding: 5px 10px;
+          background-color: rgba(255, 255, 255, 0.1);
+          border-radius: 4px;
+          font-size: 14px;
+        }
+
+        .get-started {
+          padding: 12px 25px;
+          background-color: white;
+          color: #006064;
+          border-radius: 4px;
+          font-weight: bold;
+          font-size: 16px;
+        }
+
+        /* Features Section */
+        .features {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 30px;
+          padding: 80px 5%;
+          background-color: white;
+        }
+
+        .feature-card {
+          text-align: center;
+          padding: 20px;
+        }
+
+        .feature-icon {
+          font-size: 40px;
+          color: #006064;
+          margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+          margin-bottom: 15px;
+          color: #333;
+        }
+
+        .feature-card p {
+          color: #666;
+        }
+
+        /* Integration Section */
+        .integration {
+          background-color: #e0f7fa;
+          padding: 60px 5%;
+          text-align: center;
+        }
+
+        .integration-content {
+          max-width: 800px;
+          margin: 0 auto;
+        }
+
+        .integration h2 {
+          font-size: 32px;
+          margin-bottom: 20px;
+          color: #333;
+        }
+
+        .integration p {
+          margin-bottom: 30px;
+          color: #555;
+        }
+
+        .integration-logos {
+          display: flex;
+          justify-content: center;
+          gap: 50px;
+        }
+
+        .logo-item {
+          font-size: 24px;
+          font-weight: bold;
+          color: #006064;
+        }
+
+        /* Solutions Section */
+        .solutions {
+          padding: 80px 5%;
+          text-align: center;
+          background-color: #f5f5f5;
+        }
+
+        .solutions h2 {
+          font-size: 32px;
+          margin-bottom: 50px;
+          max-width: 800px;
+          margin-left: auto;
+          margin-right: auto;
+          color: #333;
+        }
+
+        .solutions-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 20px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .solution-card {
+          padding: 30px 20px;
+          border-radius: 5px;
+          text-align: left;
+          color: white;
+        }
+
+        .solution-icon {
+          font-size: 24px;
+          margin-bottom: 15px;
+        }
+
+        .solution-card h3 {
+          margin-bottom: 10px;
+        }
+
+        /* Solution Card Colors */
+        .orange {
+          background-color: #ff5722;
+        }
+        .green {
+          background-color: #4caf50;
+        }
+        .yellow {
+          background-color: #ffc107;
+        }
+        .gray {
+          background-color: #607d8b;
+        }
+        .purple {
+          background-color: #9c27b0;
+        }
+        .blue {
+          background-color: #2196f3;
+        }
+        .light-green {
+          background-color: #8bc34a;
+        }
+        .orange-yellow {
+          background-color: #ff9800;
+        }
+        .magenta {
+          background-color: #e91e63;
+        }
+        .teal {
+          background-color: #009688;
+        }
+
+        /* Tools Section */
+        .tools {
+          padding: 80px 5%;
+          background-color: white;
+        }
+
+        .tools-content {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 50px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .tools-text {
+          flex: 1;
+          min-width: 300px;
+        }
+
+        .tools h2 {
+          font-size: 32px;
+          margin-bottom: 20px;
+          color: #333;
+        }
+
+        .tools p {
+          margin-bottom: 30px;
+          color: #555;
+        }
+
+        .tools-buttons {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 10px;
+        }
+
+        .tool-btn {
+          padding: 10px;
+          border-radius: 4px;
+          background-color: #f5f5f5;
+          color: #333;
+          font-weight: bold;
+        }
+
+        .code-example {
+          flex: 1;
+          min-width: 300px;
+          background-color: #263238;
+          color: white;
+          border-radius: 5px;
+          overflow: hidden;
+        }
+
+        .code-header {
+          display: flex;
+          justify-content: space-between;
+          padding: 10px 15px;
+          background-color: #37474f;
+        }
+
+        .code-title {
+          font-weight: bold;
+        }
+
+        .code-copy {
+          cursor: pointer;
+        }
+
+        .code-example pre {
+          padding: 20px;
+          overflow-x: auto;
+        }
+
+        .code-example code {
+          font-family: "Courier New", monospace;
+          color: #e0e0e0;
+        }
+
+        .code-footer {
+          padding: 10px 15px;
+          background-color: #37474f;
+          text-align: center;
+        }
+
+        .code-footer a {
+          color: #4fc3f7;
+        }
+
+        /* Reasons Section */
+        .reasons {
+          background-color: #006064;
+          color: white;
+          padding: 80px 5%;
+        }
+
+        .reasons-content {
+          max-width: 800px;
+          margin: 0 auto;
+        }
+
+        .reasons h2 {
+          font-size: 32px;
+          margin-bottom: 20px;
+        }
+
+        .reasons p {
+          margin-bottom: 20px;
+        }
+
+        .start-btn {
+          padding: 12px 25px;
+          background-color: white;
+          color: #006064;
+          border-radius: 4px;
+          font-weight: bold;
+          margin-top: 20px;
+        }
+
+        /* Footer */
+        footer {
+          background-color: #f5f5f5;
+          padding: 60px 5% 20px;
+        }
+
+        .footer-content {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 30px;
+          margin-bottom: 50px;
+        }
+
+        .footer-column h4 {
+          margin-bottom: 20px;
+          color: #333;
+        }
+
+        .footer-column ul {
+          list-style: none;
+        }
+
+        .footer-column li {
+          margin-bottom: 10px;
+        }
+
+        .footer-column a {
+          color: #555;
+        }
+
+        .footer-bottom {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-top: 20px;
+          border-top: 1px solid #ddd;
+          color: #777;
+        }
+
+        .social-icons {
+          display: flex;
+          gap: 15px;
+        }
+
+        /* Dropdown menu */
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+
+        .dropdown-toggle {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          font-size: 14px;
+          font-weight: 600;
+          color: #555;
+          cursor: pointer;
+        }
+
+        .dropdown-toggle i {
+          font-size: 12px;
+          transition: transform 0.3s ease;
+        }
+
+        .dropdown.active .dropdown-toggle i {
+          transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 250px;
+          background-color: white;
+          border-radius: 6px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          padding: 10px 0;
+          margin-top: 10px;
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(-10px);
+          transition: all 0.3s ease;
+          z-index: 100;
+        }
+
+        .dropdown.active .dropdown-menu {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+
+        .dropdown-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 12px 15px;
+          color: #333;
+          transition: background-color 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+          background-color: #e3f2fd;
+        }
+
+        .dropdown-item.active {
+          background-color: #bbdefb;
+        }
+
+        .dropdown-item i {
+          font-size: 18px;
+          width: 20px;
+          text-align: center;
+        }
+
+        /* Modal styles */
+        .modal {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+        }
+
+        .modal.active {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .modal-content {
+          background-color: white;
+          border-radius: 8px;
+          width: 90%;
+          max-width: 800px;
+          max-height: 90vh;
+          overflow-y: auto;
+          padding: 30px;
+          position: relative;
+          transform: scale(0.9);
+          transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+          transform: scale(1);
+        }
+
+        .modal-close {
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          font-size: 24px;
+          color: #777;
+          cursor: pointer;
+        }
+
+        .modal-header {
+          margin-bottom: 20px;
+          padding-bottom: 15px;
+          border-bottom: 1px solid #eee;
+        }
+
+        .modal-header h2 {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: #333;
+        }
+
+        .modal-body {
+          color: #555;
+        }
+
+        .modal-body ul {
+          margin: 15px 0;
+          padding-left: 20px;
+        }
+
+        .modal-body li {
+          margin-bottom: 8px;
+        }
+
+        .modal-footer {
+          margin-top: 30px;
+          padding-top: 15px;
+          border-top: 1px solid #eee;
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        .modal-btn {
+          padding: 10px 20px;
+          background-color: #006064;
+          color: white;
+          border-radius: 4px;
+          font-weight: bold;
+          cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+          .nav-links {
+            display: none;
+          }
+
+          .hero h1 {
+            font-size: 32px;
+          }
+
+          .tools-content {
+            flex-direction: column;
+          }
+
+          .footer-content {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <span class="heart">I ❤️ Anisa</span>
+            </div>
+            <div class="nav-links">
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">PRODUCTS <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+
+
+
+                      <li><a href="pdf_rest_anisa.html">PDF Rest Anisa</a></li>
+                            
+                        </a>
+                        <li><a href="image_rest_anisa.html">Image Rest Anisa</a></li>
+                           
+                        </a>
+                        <li><a href="signature_rest_anisa.html">Signature Rest Anisa</a></li>
+                           
+                        </a>
+
+
+                      
+
+                       
+
+
+
+
+                    </div>
+                </div>
+                
+                <a href="compress.html">COMPRESS</a>
+                <a href="Meme.html">MEME</a>
+                <a href="Resize.html">RESIZE</a>
+                <a href="BG Remove.html">BG REMOVE</a>
+                <a href="about.html">ABOUT</a>
+                <a href="friends.html">FRIENDS</a>
+                <a href="contect.html">CONTACT</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="login.html" class="login">LOGIN</a>
+                <a href="sign up .html" class="signup">SIGNUP</a>
+            </div>
+        </nav>
+
+
+
+
+
+
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>All our tools in a REST API for developers</h1>
+            <p>Whether you're a small startup or a large business, our API is here to help you automate document processing tasks.</p>
+            
+            <div class="tech-stack">
+                <span>PHP</span>
+                <span>NET</span>
+                <span>RUBY</span>
+                <span>NODE.JS</span>
+                <span>API REFERENCE</span>
+            </div>
+            
+            <button class="get-started">GET STARTED</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Built to scale</h3>
+            <p>Strong infrastructure to offer the best cloud-based processing system that can handle millions of daily conversions.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-file-image"></i>
+            </div>
+            <h3>PDF & Image experts</h3>
+            <p>Our team knows all about document formats and how to handle where we process millions of PDFs and images daily.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-code"></i>
+            </div>
+            <h3>Easy to develop</h3>
+            <p>We offer a simple and intuitive API. Reference and SDK to get an API key and start developing in minutes.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-file-pdf"></i>
+            </div>
+            <h3>Powered by PDF Tools</h3>
+            <p>Our infrastructure uses the best PDF technology for guaranteed document quality.</p>
+        </div>
+    </section>
+
+    <!-- Integration Section -->
+    <section class="integration">
+        <div class="integration-content">
+            <h2>Empowering your favorite file management apps</h2>
+            <p>iLovePDF and iLoveIMG rely on iLoveAPI to process 20 million images and PDFs every day with seamless integration and unmatched performance.</p>
+            
+            <div class="integration-logos">
+                <div class="logo-item">I ❤️ PDF</div>
+                <div class="logo-item">I ❤️ IMG</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section class="solutions">
+        <h2>Start building solutions that convert, optimize and organize PDFs</h2>
+        
+        <div class="solutions-grid">
+            <!-- Row 1 -->
+            <div class="solution-card orange">
+                <div class="solution-icon">
+                    <i class="fas fa-folder"></i>
+                </div>
+                <h3>Organize PDF</h3>
+                <p>Merge and split documents with a variety of custom options. Rotate, reorder or organize PDF pages.</p>
+            </div>
+            
+            <div class="solution-card green">
+                <div class="solution-icon">
+                    <i class="fas fa-compress-alt"></i>
+                </div>
+                <h3>Compress PDF</h3>
+                <p>Reduce the size of your PDF while maintaining its original quality and formatting.</p>
+            </div>
+            
+            <div class="solution-card yellow">
+                <div class="solution-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3>Convert to PDF</h3>
+                <p>Transform Office, HTML and image files into PDF with high-quality and precision.</p>
+            </div>
+            
+            <!-- Row 2 -->
+            <div class="solution-card gray">
+                <div class="solution-icon">
+                    <i class="fas fa-file-export"></i>
+                </div>
+                <h3>Convert from PDF</h3>
+                <p>Convert PDF documents to JPG images, Word, and Excel.</p>
+            </div>
+            
+            <div class="solution-card purple">
+                <div class="solution-icon">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <h3>Edit PDF</h3>
+                <p>Rotate, add page numbers and watermarks to PDF with annotations and drawings.</p>
+            </div>
+            
+            <div class="solution-card blue">
+                <div class="solution-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>PDF Security</h3>
+                <p>Encrypt PDFs with a password to protect sensitive content or remove restrictions from protected documents.</p>
+            </div>
+            
+            <!-- Row 3 -->
+            <div class="solution-card light-green">
+                <div class="solution-icon">
+                    <i class="fas fa-compress"></i>
+                </div>
+                <h3>Compress Image</h3>
+                <p>Compress JPG, PNG and GIFs while maintaining quality and reducing space.</p>
+            </div>
+            
+            <div class="solution-card orange-yellow">
+                <div class="solution-icon">
+                    <i class="fas fa-file-export"></i>
+                </div>
+                <h3>Convert to JPG</h3>
+                <p>Transform PDF, GIF, and other formats to JPG images easily.</p>
+            </div>
+            
+            <div class="solution-card magenta">
+                <div class="solution-icon">
+                    <i class="fas fa-crop"></i>
+                </div>
+                <h3>Edit Image</h3>
+                <p>Resize, crop and edit with tools. Rotate, flip or add filters to your images.</p>
+            </div>
+            
+            <!-- Row 4 -->
+            <div class="solution-card teal">
+                <div class="solution-icon">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h3>Transform Image</h3>
+                <p>Apply transformations to images such as resize, rotate and more.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="tools">
+        <div class="tools-content">
+            <div class="tools-text">
+                <h2>A full suite of Image, PDF and Sign tools at your service</h2>
+                <p>Want to take a look around? Get started today with our collection of libraries and complete documentation.</p>
+                
+                <div class="tools-buttons">
+                    <button class="tool-btn pdf">PDF Solutions</button>
+                    <button class="tool-btn image">Image Solutions</button>
+                    <button class="tool-btn signature">Signature Solutions</button>
+                    <button class="tool-btn api">API Reference</button>
+                </div>
+            </div>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    <span class="code-title">Example</span>
+                    <span class="code-copy">Copy</span>
+                </div>
+                <pre><code>
+// Convert sample
+$client = new \iLoveAPI\Client();
+$client->setApiKey($api_key);
+
+// Create a new task
+$task = $client->newTask('pdftojpg');
+
+// Add file to the task
+$task->addFile('/path/to/file.pdf');
+
+// Process and download
+$task->process();
+$files = $task->download('/path/to/save/');
+                </code></pre>
+                <div class="code-footer">
+                    <a href="#">Download the library from GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reasons Section -->
+    <section class="reasons">
+        <div class="reasons-content">
+            <h2>A few reasons to integrate iLoveAPI</h2>
+            <p>Millions of people trust iLoveAPI to process their documents. They chose to solve all their document needs in one place using our best-in-class tools.</p>
+            <p>Now you have full access to those same tools and infrastructure, built to scale.</p>
+            <button class="start-btn">START USING API</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>HELP</h4>
+                <ul>
+                    <li><a href="blog.html">Anisa Reference</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>GUIDES</h4>
+                <ul>
+                    <li><a href="pdf_rest_anisa.html">PDF Anisa Guides</a></li>
+                    <li><a href="image_rest_anisa.html">Image PDF Anisa Guides</a></li>
+                    <li><a href="signature_rest_Anisa.html">Signature PDF Anisa Guides</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>API LIBRARIES</h4>
+                <ul>
+                    <li><a href="php.html">PHP</a></li>
+                    <li><a href="net.html">NET</a></li>
+                    <li><a href="node.html">Node.js</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>ABOUT</h4>
+                <ul>
+                    <li><a href="contect.html">The Team</a></li>
+                    <li><a href="friends.html">Friends</a></li>
+                    <li><a href="t c.html">Terms & Conditions</a></li>
+                    <li><a href="contect.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© iLoveAPI 2023 - Your PDF Editor</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PDF API Modal -->
+    <div id="pdf-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-header">
+                <h2><i class="fas fa-file-pdf" style="color: #e53935;"></i> PDF REST API</h2>
+            </div>
+            <div class="modal-body">
+                <p>Our PDF REST API provides powerful tools for manipulating PDF documents programmatically. With our API, you can:</p>
+                <ul>
+                    <li>Convert various file formats to PDF</li>
+                    <li>Extract text and images from PDF files</li>
+                    <li>Merge, split, and compress PDF documents</li>
+                    <li>Add watermarks, annotations, and signatures</li>
+                    <li>Secure PDFs with passwords and permissions</li>
+                    <li>Extract metadata and form data</li>
+                </ul>
+                <p>Our API is designed for developers who need reliable, high-quality PDF processing capabilities in their applications.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn">Get Started</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image API Modal -->
+    <div id="image-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-header">
+                <h2><i class="fas fa-image" style="color: #1e88e5;"></i> Image REST API</h2>
+            </div>
+            <div class="modal-body">
+                <p>Our Image REST API provides comprehensive tools for image processing and manipulation. With our API, you can:</p>
+                <ul>
+                    <li>Convert images between different formats (JPG, PNG, GIF, etc.)</li>
+                    <li>Resize, crop, and rotate images</li>
+                    <li>Apply filters and effects</li>
+                    <li>Compress images while maintaining quality</li>
+                    <li>Extract metadata from images</li>
+                    <li>Generate thumbnails and previews</li>
+                </ul>
+                <p>Perfect for applications that need to handle image processing at scale with consistent quality.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn">Get Started</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signature API Modal -->
+    <div id="signature-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-header">
+                <h2><i class="fas fa-signature" style="color: #1e88e5;"></i> Signature REST API</h2>
+            </div>
+            <div class="modal-body">
+                <p>Our Signature REST API enables secure electronic signatures for your documents. With our API, you can:</p>
+                <ul>
+                    <li>Add electronic signatures to PDF documents</li>
+                    <li>Verify signature authenticity</li>
+                    <li>Create signature workflows for multiple signers</li>
+                    <li>Track signature status and history</li>
+                    <li>Comply with legal e-signature requirements</li>
+                    <li>Integrate with your existing document management system</li>
+                </ul>
+                <p>Streamline your document signing process with our secure, compliant, and easy-to-integrate API.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn">Get Started</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dropdown functionality
+            const dropdown = document.querySelector('.dropdown');
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            
+            dropdownToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                dropdown.classList.toggle('active');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('active');
+                }
+            });
+            
+            // Modal functionality
+            const dropdownItems = document.querySelectorAll('.dropdown-item');
+            const modals = document.querySelectorAll('.modal');
+            const closeButtons = document.querySelectorAll('.modal-close');
+            
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Add active class to highlight the clicked item
+                    dropdownItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Get the product type from data attribute
+                    const productType = this.getAttribute('data-product');
+                    const modalId = `${productType}-modal`;
+                    
+                    // Show the corresponding modal
+                    document.getElementById(modalId).classList.add('active');
+                    
+                    // Close the dropdown
+                    dropdown.classList.remove('active');
+                    
+                    // Remove active class after a short delay
+                    setTimeout(() => {
+                        this.classList.remove('active');
+                    }, 300);
+                });
+            });
+            
+            // Close modal when clicking the close button
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.closest('.modal').classList.remove('active');
+                });
+            });
+            
+            // Close modal when clicking outside the modal content
+            modals.forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                    }
+                });
+            });
+
+            // Copy code functionality
+            const copyButton = document.querySelector('.code-copy');
+            if (copyButton) {
+                copyButton.addEventListener('click', function() {
+                    const code = document.querySelector('.code-example code').innerText;
+                    navigator.clipboard.writeText(code).then(() => {
+                        this.textContent = 'Copied!';
+                        setTimeout(() => {
+                            this.textContent = 'Copy';
+                        }, 2000);
+                    });
+                });
+            }
+        });
+    </script>
+     <a href="/pdf rest anisa.html">pdf rest anisa.com</a>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
