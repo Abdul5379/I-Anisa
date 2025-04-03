@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online background removal tool - Remove backgrounds from images instantly">
+    <meta name="keywords" content="background removal, remove background, transparent background, image editing, background changer">
+    <title>Advanced Background Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-light: #e0e7ff;
+            --secondary: #f9fafb;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --light-gray: #e5e7eb;
+            --white: #ffffff;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
+            opacity: 0.3;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 1rem;
+        }
+        
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .tool-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 1024px) {
+            .tool-container {
+                flex-direction: row;
+            }
+        }
+        
+        .upload-section {
+            flex: 1;
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .result-section {
+            flex: 1;
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-title i {
+            font-size: 1.25rem;
+        }
+        
+        .section-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .upload-area {
+            width: 100%;
+            height: 300px;
+            border: 2px dashed var(--light-gray);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            background-color: var(--secondary);
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+        
+        .upload-area.active {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+        
+        .upload-area input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .upload-text {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .upload-subtext {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+        }
+        
+        .btn:disabled {
+            background-color: var(--light-gray);
+            color: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .btn-secondary {
+            background-color: var(--white);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--primary-light);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .preview-container {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: var(--secondary);
+            border: 1px solid var(--light-gray);
+        }
+        
+        .preview-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .result-container {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), 
+                              linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), 
+                              linear-gradient(45deg, transparent 75%, #f0f0f0 75%), 
+                              linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            border: 1px solid var(--light-gray);
+        }
+        
+        .result-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .loading {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            z-index: 10;
+            border-radius: 8px;
+        }
+        
+        .loading.active {
+            display: flex;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .options-panel {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: var(--secondary);
+            border-radius: 8px;
+            border: 1px solid var(--light-gray);
+        }
+        
+        .options-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-dark);
+        }
+        
+        .option-group {
+            margin-bottom: 1rem;
+        }
+        
+        .option-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+        
+        .option-description {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        select, input[type="range"] {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--light-gray);
+            background-color: var(--white);
+        }
+        
+        .color-picker {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s ease;
+        }
+        
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+        
+        .color-option.active {
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        .bg-preview {
+            width: 100%;
+            height: 80px;
+            border-radius: 6px;
+            margin-top: 1rem;
+            border: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .bg-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .ad-container {
+            width: 100%;
+            margin: 2rem 0;
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--light-gray);
+        }
+        
+        .ad-placeholder {
+            width: 100%;
+            height: 90px;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-weight: 600;
+            border-radius: 6px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background-color: var(--white);
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-link {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .file-info {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            display: none;
+        }
+        
+        .file-info.active {
+            display: block;
+        }
+        
+        .error-message {
+            color: var(--error);
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .error-message.active {
+            display: block;
+        }
+        
+        .success-message {
+            color: var(--success);
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .success-message.active {
+            display: block;
+        }
+        
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--text);
+            color: var(--white);
+            text-align: center;
+            border-radius: 6px;
+            padding: 0.5rem;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+            font-weight: normal;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+            
+            .upload-area, .preview-container, .result-container {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <!-- Space for your logo image -->
+                
+                <h1>Advanced Background Editor</h1>
+            </div>
+            <p>Remove, change or edit backgrounds from your images with one click</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Top Ad Container -->
+        <div class="ad-container">
+            <div id="ad-top" class="ad-placeholder">
+                Advertisement Space
+            </div>
+        </div>
+        
+        <div class="tool-container">
+            <div class="upload-section">
+                <h2 class="section-title"><i class="fas fa-upload"></i> Upload Image</h2>
+                <p class="section-description">Select an image to remove or change the background</p>
+                
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <p class="upload-text">Drag & Drop or Click to Upload</p>
+                    <p class="upload-subtext">Supports JPG, PNG (Max 5MB)</p>
+                    <input type="file" id="file-input" accept="image/jpeg, image/png" />
+                </div>
+                
+                <div class="file-info" id="file-info">
+                    <span id="file-name"></span> • <span id="file-size"></span>
+                </div>
+                
+                <div class="error-message" id="error-message"></div>
+                
+                <div class="preview-container">
+                    <img id="preview-image" src="placeholder-image.svg" alt="Preview" style="display: none;" />
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <p class="loading-text">Processing image...</p>
+                    </div>
+                </div>
+                
+                <div class="options-panel">
+                    <h3 class="options-title"><i class="fas fa-sliders-h"></i> Processing Options</h3>
+                    
+                    <div class="option-group">
+                        <label class="option-label">Processing Mode</label>
+                        <select id="processing-mode">
+                            <option value="auto">Auto Background Removal</option>
+                            <option value="manual">Manual Fine-tuning</option>
+                            <option value="keep-color">Keep Specific Colors</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label class="option-label">Edge Refinement</label>
+                        <input type="range" id="edge-refinement" min="0" max="100" value="50">
+                        <p class="option-description">Adjust to improve edge quality</p>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn" id="remove-bg-btn" disabled>
+                        <i class="fas fa-magic"></i> Remove Background
+                    </button>
+                    <button class="btn btn-secondary" id="reset-btn" disabled>
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <h2 class="section-title"><i class="fas fa-image"></i> Result</h2>
+                <p class="section-description">Your image with background removed or changed</p>
+                
+                <div class="result-container">
+                    <img id="result-image" src="placeholder-image.svg" alt="Result" style="display: none;" />
+                </div>
+                
+                <div class="success-message" id="success-message"></div>
+                
+                <div class="options-panel">
+                    <h3 class="options-title"><i class="fas fa-paint-brush"></i> Background Options</h3>
+                    
+                    <div class="option-group">
+                        <label class="option-label">Background Type</label>
+                        <select id="background-type">
+                            <option value="transparent">Transparent</option>
+                            <option value="color">Solid Color</option>
+                            <option value="gradient">Gradient</option>
+                            <option value="image">Custom Image</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-group" id="color-options">
+                        <label class="option-label">Background Color</label>
+                        <div class="color-picker">
+                            <div class="color-option active" style="background-color: #ffffff;" data-color="#ffffff"></div>
+                            <div class="color-option" style="background-color: #f3f4f6;" data-color="#f3f4f6"></div>
+                            <div class="color-option" style="background-color: #e5e7eb;" data-color="#e5e7eb"></div>
+                            <div class="color-option" style="background-color: #4f46e5;" data-color="#4f46e5"></div>
+                            <div class="color-option" style="background-color: #10b981;" data-color="#10b981"></div>
+                            <div class="color-option" style="background-color: #000000;" data-color="#000000"></div>
+                        </div>
+                        <input type="color" id="custom-color" value="#ffffff" style="margin-top: 0.5rem;">
+                    </div>
+                    
+                    <div class="option-group" id="image-upload-group" style="display: none;">
+                        <label class="option-label">Upload Background Image</label>
+                        <input type="file" id="bg-image-input" accept="image/jpeg, image/png" style="width: 100%;">
+                        <div class="bg-preview" id="bg-preview"></div>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn" id="download-btn" disabled>
+                        <i class="fas fa-download"></i> Download Image
+                    </button>
+                    <button class="btn btn-secondary" id="share-btn" disabled>
+                        <i class="fas fa-share-alt"></i> Share
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                <h3 class="feature-title">Instant Processing</h3>
+                <p class="feature-description">Remove backgrounds in seconds with our advanced AI technology</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-palette"></i></div>
+                <h3 class="feature-title">Multiple Backgrounds</h3>
+                <p class="feature-description">Choose from transparent, solid colors, gradients or custom images</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3 class="feature-title">Privacy Focused</h3>
+                <p class="feature-description">Your images are processed in browser and never uploaded to servers</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-heart"></i></div>
+                <h3 class="feature-title">Free to Use</h3>
+                <p class="feature-description">No watermarks, no subscriptions - completely free forever</p>
+            </div>
+        </div>
+        
+        <!-- Bottom Ad Container -->
+        <div class="ad-container">
+            <div id="ad-bottom" class="ad-placeholder">
+                Advertisement Space
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-links">
+            <a href="home.html" class="footer-link">Home</a>
+            <a href="about.html" class="footer-link">About</a>
+            <a href="t c.html" class="footer-link">Privacy Policy</a>
+            <a href="t c.html" class="footer-link">Terms of Service</a>
+            <a href="contect.html" class="footer-link">Contact</a>
+        </div>
+        <p class="copyright">&copy; 2025 Advanced Background Editor. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
+    const uploadArea = document.getElementById('upload-area');
+    const fileInput = document.getElementById('file-input');
+    const previewImage = document.getElementById('preview-image');
+    const resultImage = document.getElementById('result-image');
+    const fileName = document.getElementById('file-name');
+    const fileSize = document.getElementById('file-size');
+    const fileInfo = document.getElementById('file-info');
+    const errorMessage = document.getElementById('error-message');
+    const successMessage = document.getElementById('success-message');
+    const loading = document.getElementById('loading');
+    const removeBgBtn = document.getElementById('remove-bg-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const downloadBtn = document.getElementById('download-btn');
+    const shareBtn = document.getElementById('share-btn');
+    const backgroundType = document.getElementById('background-type');
+    const colorOptions = document.getElementById('color-options');
+    const imageUploadGroup = document.getElementById('image-upload-group');
+    const bgImageInput = document.getElementById('bg-image-input');
+    const bgPreview = document.getElementById('bg-preview');
+    const customColor = document.getElementById('custom-color');
+    const colorOptionElements = document.querySelectorAll('.color-option');
+    const processingMode = document.getElementById('processing-mode');
+    const edgeRefinement = document.getElementById('edge-refinement');
+    
+    // Variables
+    let originalImage = null;
+    let processedImage = null;
+    let currentBackgroundColor = '#ffffff';
+    let bgImage = null;
+    
+    // Event Listeners
+    uploadArea.addEventListener('click', () => fileInput.click());
+    uploadArea.addEventListener('dragover', handleDragOver);
+    uploadArea.addEventListener('dragleave', handleDragLeave);
+    uploadArea.addEventListener('drop', handleDrop);
+    fileInput.addEventListener('change', handleFileSelect);
+    removeBgBtn.addEventListener('click', processImage);
+    resetBtn.addEventListener('click', resetTool);
+    downloadBtn.addEventListener('click', downloadImage);
+    shareBtn.addEventListener('click', shareImage);
+    backgroundType.addEventListener('change', updateBackgroundOptions);
+    bgImageInput.addEventListener('change', handleBackgroundImageUpload);
+    customColor.addEventListener('input', updateCustomColor);
+    
+    // Add click event for color options
+    colorOptionElements.forEach(option => {
+        option.addEventListener('click', function() {
+            colorOptionElements.forEach(opt => opt.classList.remove('active'));
+            this.classList.add('active');
+            currentBackgroundColor = this.getAttribute('data-color');
+            customColor.value = currentBackgroundColor;
+            applyBackground();
+        });
+    });
+
+    // Initialize color picker with first color
+    if (colorOptionElements.length > 0) {
+        customColor.value = colorOptionElements[0].getAttribute('data-color');
+    }
+    
+    // Functions
+    function handleDragOver(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        uploadArea.classList.add('active');
+    }
+    
+    function handleDragLeave(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        uploadArea.classList.remove('active');
+    }
+    
+    function handleDrop(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        uploadArea.classList.remove('active');
+        
+        if (e.dataTransfer.files.length) {
+            fileInput.files = e.dataTransfer.files;
+            handleFileSelect({ target: fileInput });
+        }
+    }
+    
+    function handleFileSelect(e) {
+        const file = e.target.files[0];
+        
+        if (!file) return;
+        
+        // Check file type
+        if (!file.type.match('image.*')) {
+            showError('Please select an image file (JPEG or PNG)');
+            return;
+        }
+        
+        // Check file size (5MB max)
+        if (file.size > 5 * 1024 * 1024) {
+            showError('File size exceeds 5MB limit');
+            return;
+        }
+        
+        // Clear any previous errors
+        hideError();
+        
+        // Display file info
+        fileName.textContent = file.name;
+        fileSize.textContent = formatFileSize(file.size);
+        fileInfo.classList.add('active');
+        
+        // Enable buttons
+        removeBgBtn.disabled = false;
+        resetBtn.disabled = false;
+        
+        // Preview image
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            originalImage = event.target.result;
+            previewImage.src = originalImage;
+            previewImage.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+    
+    function processImage() {
+        if (!originalImage) return;
+        
+        // Show loading state
+        loading.classList.add('active');
+        removeBgBtn.disabled = true;
+        
+        // Create image element for processing
+        const img = new Image();
+        img.onload = function() {
+            // Process the image (remove background)
+            setTimeout(() => {
+                processedImage = removeBackground(img);
+                resultImage.src = processedImage;
+                resultImage.style.display = 'block';
+                
+                // Hide loading and enable download
+                loading.classList.remove('active');
+                downloadBtn.disabled = false;
+                shareBtn.disabled = false;
+                
+                // Show success message
+                successMessage.textContent = 'Background removed successfully!';
+                successMessage.classList.add('active');
+                
+                // Apply initial background
+                applyBackground();
+            }, 100); // Small delay to show loading state
+        };
+        img.src = originalImage;
+    }
+    
+    function removeBackground(img) {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas dimensions
+        canvas.width = img.width;
+        canvas.height = img.height;
+        
+        // Draw the image
+        ctx.drawImage(img, 0, 0);
+        
+        // Get image data
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        
+        // Simple background removal algorithm
+        // This is a basic implementation - for better results use a proper library/API
+        const edgeThreshold = edgeRefinement.value / 100 * 50; // Adjust based on slider
+        
+        // Detect background color (simple method - assumes corners are background)
+        const bgColor = getBackgroundColor(imageData);
+        
+        // Remove background
+        for (let i = 0; i < data.length; i += 4) {
+            const r = data[i];
+            const g = data[i + 1];
+            const b = data[i + 2];
+            
+            // Calculate color difference from background
+            const diff = colorDifference([r, g, b], bgColor);
+            
+            // If color is similar to background, make it transparent
+            if (diff < edgeThreshold) {
+                data[i + 3] = 0; // Set alpha to 0 (transparent)
+            } else if (diff < edgeThreshold * 1.5) {
+                // For edge refinement, partially transparent
+                data[i + 3] = Math.floor(255 * (diff - edgeThreshold) / (edgeThreshold * 0.5));
+            }
+        }
+        
+        // Put the modified data back
+        ctx.putImageData(imageData, 0, 0);
+        
+        // Return as data URL
+        return canvas.toDataURL('image/png');
+    }
+    
+    function getBackgroundColor(imageData) {
+        // Simple method: average the corners
+        const data = imageData.data;
+        const width = imageData.width;
+        const samples = [];
+        
+        // Sample 4 corners
+        const positions = [
+            0, // top-left
+            (width - 1) * 4, // top-right
+            (imageData.height - 1) * width * 4, // bottom-left
+            (imageData.height * width - 1) * 4 // bottom-right
+        ];
+        
+        for (const pos of positions) {
+            samples.push([
+                data[pos],     // R
+                data[pos + 1],  // G
+                data[pos + 2]   // B
+            ]);
+        }
+        
+        // Calculate average
+        const avg = [0, 0, 0];
+        for (const sample of samples) {
+            avg[0] += sample[0];
+            avg[1] += sample[1];
+            avg[2] += sample[2];
+        }
+        
+        avg[0] = Math.floor(avg[0] / samples.length);
+        avg[1] = Math.floor(avg[1] / samples.length);
+        avg[2] = Math.floor(avg[2] / samples.length);
+        
+        return avg;
+    }
+    
+    function colorDifference(color1, color2) {
+        // Calculate Euclidean distance between two colors
+        const dr = color1[0] - color2[0];
+        const dg = color1[1] - color2[1];
+        const db = color1[2] - color2[2];
+        return Math.sqrt(dr * dr + dg * dg + db * db);
+    }
+    
+    function applyBackground() {
+        if (!processedImage) return;
+        
+        const bgType = backgroundType.value;
+        const resultContainer = document.querySelector('.result-container');
+        
+        // Reset all background styles
+        resultContainer.style.backgroundImage = 'none';
+        resultContainer.style.backgroundColor = 'transparent';
+        
+        switch (bgType) {
+            case 'transparent':
+                // Use checkerboard pattern (already in CSS)
+                resultContainer.style.backgroundImage = `
+                    linear-gradient(45deg, #f0f0f0 25%, transparent 25%), 
+                    linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), 
+                    linear-gradient(45deg, transparent 75%, #f0f0f0 75%), 
+                    linear-gradient(-45deg, transparent 75%, #f0f0f0 75%)
+                `;
+                resultContainer.style.backgroundSize = '20px 20px';
+                resultContainer.style.backgroundPosition = '0 0, 0 10px, 10px -10px, -10px 0px';
+                break;
+            case 'color':
+                resultContainer.style.backgroundColor = currentBackgroundColor;
+                break;
+            case 'gradient':
+                resultContainer.style.backgroundImage = `
+                    linear-gradient(135deg, 
+                    ${currentBackgroundColor}, 
+                    #${Math.floor(Math.random()*16777215).toString(16)})
+                `;
+                break;
+            case 'image':
+                if (bgImage) {
+                    resultContainer.style.backgroundImage = `url(${bgImage})`;
+                    resultContainer.style.backgroundSize = 'cover';
+                }
+                break;
+        }
+    }
+    
+    function updateBackgroundOptions() {
+        const bgType = backgroundType.value;
+        
+        // Hide all options first
+        colorOptions.style.display = 'none';
+        imageUploadGroup.style.display = 'none';
+        
+        // Show relevant options
+        if (bgType === 'color' || bgType === 'gradient') {
+            colorOptions.style.display = 'block';
+        } else if (bgType === 'image') {
+            imageUploadGroup.style.display = 'block';
+        }
+        
+        // Apply changes
+        applyBackground();
+    }
+    
+    function handleBackgroundImageUpload(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        if (!file.type.match('image.*')) {
+            showError('Please select an image file for background');
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            bgImage = event.target.result;
+            
+            // Create image element for preview
+            const img = document.createElement('img');
+            img.src = bgImage;
+            img.style.width = '100%';
+            img.style.height = '100%';
+            img.style.objectFit = 'cover';
+            
+            // Clear previous preview
+            bgPreview.innerHTML = '';
+            bgPreview.appendChild(img);
+            
+            // Apply as background
+            applyBackground();
+        };
+        reader.readAsDataURL(file);
+    }
+    
+    function updateCustomColor() {
+        currentBackgroundColor = customColor.value;
+        
+        // Update active color option if it matches
+        colorOptionElements.forEach(option => {
+            if (option.getAttribute('data-color') === currentBackgroundColor) {
+                option.classList.add('active');
+            } else {
+                option.classList.remove('active');
+            }
+        });
+        
+        applyBackground();
+    }
+    
+    function downloadImage() {
+        if (!processedImage) return;
+        
+        // Create a canvas to combine the image with background
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+        
+        img.onload = function() {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            
+            // Draw background first
+            const bgType = backgroundType.value;
+            
+            if (bgType === 'transparent') {
+                // For transparent, we need to fill with white then composite
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            } else if (bgType === 'color') {
+                ctx.fillStyle = currentBackgroundColor;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            } else if (bgType === 'gradient') {
+                const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                gradient.addColorStop(0, currentBackgroundColor);
+                gradient.addColorStop(1, `#${Math.floor(Math.random()*16777215).toString(16)}`);
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            } else if (bgType === 'image' && bgImage) {
+                const bgImg = new Image();
+                bgImg.onload = function() {
+                    ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+                    compositeForeground();
+                };
+                bgImg.src = bgImage;
+                return;
+            }
+            
+            compositeForeground();
+        };
+        
+        function compositeForeground() {
+            // Draw the foreground image
+            ctx.drawImage(img, 0, 0);
+            
+            // Create download link
+            const link = document.createElement('a');
+            const filename = fileName.textContent 
+                ? fileName.textContent.replace(/\.[^/.]+$/, '') + '-processed.png'
+                : 'background-removed.png';
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        img.src = processedImage;
+    }
+    
+    function shareImage() {
+        if (!processedImage) return;
+        
+        if (navigator.share) {
+            // Use Web Share API if available
+            navigator.share({
+                title: 'Background Removed Image',
+                text: 'Check out my image with the background removed!',
+                url: processedImage
+            }).catch(err => {
+                console.error('Error sharing:', err);
+                fallbackShare();
+            });
+        } else {
+            fallbackShare();
+        }
+    }
+    
+    function fallbackShare() {
+        // Fallback for browsers without Web Share API
+        const shareUrl = `https://twitter.com/intent/tweet?text=Check%20out%20my%20image%20with%20the%20background%20removed!&url=${encodeURIComponent(window.location.href)}`;
+        window.open(shareUrl, '_blank');
+    }
+    
+    function resetTool() {
+        // Reset file input
+        fileInput.value = '';
+        
+        // Reset images
+        previewImage.src = '';
+        previewImage.style.display = 'none';
+        resultImage.src = '';
+        resultImage.style.display = 'none';
+        
+        // Reset file info
+        fileInfo.classList.remove('active');
+        
+        // Reset buttons
+        removeBgBtn.disabled = true;
+        resetBtn.disabled = true;
+        downloadBtn.disabled = true;
+        shareBtn.disabled = true;
+        
+        // Reset messages
+        hideError();
+        successMessage.classList.remove('active');
+        
+        // Reset background options
+        backgroundType.value = 'transparent';
+        updateBackgroundOptions();
+        bgPreview.innerHTML = '';
+        bgImageInput.value = '';
+        bgImage = null;
+        
+        // Reset variables
+        originalImage = null;
+        processedImage = null;
+    }
+    
+    function showError(message) {
+        errorMessage.textContent = message;
+        errorMessage.classList.add('active');
+    }
+    
+    function hideError() {
+        errorMessage.classList.remove('active');
+    }
+    
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+});
+
+
+
+
+//google adds
+(function() {
+    const adScript = document.createElement('script');
+    adScript.async = true;
+    adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8952133365130199';
+    adScript.crossOrigin = 'anonymous';
+    document.head.appendChild(adScript);
+    
+    // Initialize ads
+    window.addEventListener('load', function() {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    });
+})();
+// goolge
+
+
+
+    </script>
+    </body>
+    </html>
