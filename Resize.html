@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Resize Tool | Resize JPG, PNG, SVG or GIF Images</title>
+    <meta name="description" content="Free online tool to resize your images. Change dimensions of JPG, PNG, SVG or GIF by defining new height and width in pixels. Resize images in bulk.">
+    <meta name="keywords" content="image resize, resize image, change image dimensions, resize jpg, resize png, resize svg, resize gif, bulk image resize">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Image Resize Tool | Resize JPG, PNG, SVG or GIF Images">
+    <meta property="og:description" content="Free online tool to resize your images. Change dimensions of JPG, PNG, SVG or GIF by defining new height and width in pixels.">
+    <meta property="og:url" content="https://imageresizer.example.com">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://imageresizer.example.com/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image Resize Tool",
+      "description": "Free online tool to resize your images. Change dimensions of JPG, PNG, SVG or GIF by defining new height and width in pixels.",
+      "url": "https://imageresizer.example.com",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8952133365130199" crossorigin="anonymous"></script>
+    
+    <style>
+        /* Reset and Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        :root {
+            --primary-color: #3b82f6;
+            --primary-hover: #2563eb;
+            --text-color: #1f2937;
+            --text-light: #6b7280;
+            --background: #f9fafb;
+            --background-dark: #f3f4f6;
+            --border-color: #e5e7eb;
+            --success-color: #10b981;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            color: var(--text-color);
+            background: linear-gradient(to bottom, #f9fafb, #f3f4f6);
+            min-height: 100vh;
+        }
+        
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        /* Typography */
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+        
+        h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Card */
+        .card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        /* Image Upload Area */
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .upload-area.active {
+            border-color: var(--primary-color);
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+        
+        .upload-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .upload-text {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+        
+        .upload-subtext {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+        
+        .image-preview {
+            max-width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+        }
+        
+        .image-info {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+        
+        /* Resize Controls */
+        .controls {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+        
+        .input-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .input-field {
+            flex: 1;
+        }
+        
+        .input-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        .input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .checkbox {
+            margin-right: 0.5rem;
+        }
+        
+        /* Buttons */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        @media (min-width: 640px) {
+            .button-group {
+                flex-direction: row;
+            }
+        }
+        
+        .button {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.625rem 1.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+        }
+        
+        .button-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+        
+        .button-primary:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        .button-primary:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        .button-outline {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .button-outline:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .button-outline:disabled {
+            color: #9ca3af;
+            border-color: #e5e7eb;
+            cursor: not-allowed;
+        }
+        
+        .button-icon {
+            margin-right: 0.5rem;
+            width: 16px;
+            height: 16px;
+        }
+        
+        /* Progress */
+        .progress-container {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        /* Features Section */
+        .features {
+            margin: 4rem 0;
+        }
+        
+        .features-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 640px) {
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .features-grid {
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+            }
+        }
+        
+        .feature-card {
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+        }
+        
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-description {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+        
+        /* FAQ Section */
+        .faq {
+            margin: 4rem 0;
+        }
+        
+        .faq-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .faq-container {
+            max-width: 768px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .faq-question {
+            padding: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .faq-icon {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 0 1rem 0;
+            max-height: 500px;
+        }
+        
+        .faq-answer-text {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+        
+        /* Ad Banners */
+        .ad-banner {
+            background-color: #f9fafb;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .ad-banner-top, .ad-banner-bottom {
+            min-height: 90px;
+        }
+        
+        .ad-banner-middle {
+            min-height: 250px;
+        }
+        
+        .ad-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.75rem;
+            color: #9ca3af;
+            pointer-events: none;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-top: 3rem;
+        }
+        
+        /* Utility Classes */
+        .text-success {
+            color: var(--success-color);
+        }
+        
+        .font-medium {
+            font-weight: 500;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Bulk Upload */
+        .bulk-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .bulk-image-item {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border: 1px solid var(--border-color);
+            border-radius: 0.25rem;
+            overflow: hidden;
+        }
+        
+        .bulk-image-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .bulk-image-remove {
+            position: absolute;
+            top: 0.25rem;
+            right: 0.25rem;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Resize Tool</h1>
+        <p class="subtitle">Resize JPG, PNG, SVG or GIF by defining new height and width pixels. Change image dimensions in bulk.</p>
+        
+        <!-- Top Ad Banner -->
+        <div class="ad-banner ad-banner-top">
+            <!-- ad 1 -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-8952133365130199"
+                 data-ad-slot="4489040778"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <!-- Main Resize Tool -->
+        <div class="card">
+            <div class="card-content">
+                <div class="grid">
+                    <!-- Original Image Section -->
+                    <div>
+                        <h2>Upload Images</h2>
+                        <div id="upload-area" class="upload-area">
+                            <input type="file" id="file-input" accept="image/*" multiple class="hidden">
+                            <div id="upload-placeholder">
+                                <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                </svg>
+                                <p class="upload-text">Drag & drop your images here or click to browse</p>
+                                <p class="upload-subtext">Supports JPG, PNG, SVG, and GIF</p>
+                            </div>
+                            <div id="bulk-upload-preview" class="hidden">
+                                <div id="bulk-images" class="bulk-images"></div>
+                                <p class="upload-text mt-4">Click to add more images</p>
+                            </div>
+                        </div>
+                        <div id="original-info" class="image-info hidden">
+                            <p><span class="font-medium">Selected:</span> <span id="image-count">0</span> images</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Resized Image Section -->
+                    <div>
+                        <h2>Preview</h2>
+                        <div id="result-area" class="upload-area" style="cursor: default;">
+                            <div id="preview-placeholder">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="upload-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <p class="upload-text">Resized image preview will appear here</p>
+                            </div>
+                            <div id="resizing-loading" class="hidden">
+                                <svg class="upload-icon animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                                <p class="upload-text">Resizing image...</p>
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div id="progress-fill" class="progress-fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <img id="resized-preview" class="image-preview hidden" src="/placeholder.svg" alt="Resized image preview">
+                        </div>
+                        <div id="resized-info" class="image-info hidden">
+                            <p><span class="font-medium">Original dimensions:</span> <span id="original-dimensions"></span></p>
+                            <p><span class="font-medium">New dimensions:</span> <span id="new-dimensions"></span></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Controls Section -->
+                <div class="controls">
+                    <div class="input-row">
+                        <div class="input-field">
+                            <label class="input-label" for="width">Width (px)</label>
+                            <input type="number" id="width" class="input" placeholder="Width in pixels" min="1">
+                        </div>
+                        <div class="input-field">
+                            <label class="input-label" for="height">Height (px)</label>
+                            <input type="number" id="height" class="input" placeholder="Height in pixels" min="1">
+                        </div>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="maintain-aspect-ratio" class="checkbox" checked>
+                        <label for="maintain-aspect-ratio" class="input-label">Maintain aspect ratio</label>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="resize-all" class="checkbox">
+                        <label for="resize-all" class="input-label">Apply to all images</label>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button id="resize-button" class="button button-primary" disabled>
+                            Resize Image
+                        </button>
+                        <button id="download-button" class="button button-outline" disabled>
+                            <svg class="button-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            Download
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Middle Ad Banner -->
+        <div class="ad-banner ad-banner-middle">
+            <!-- ad 1 -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-8952133365130199"
+                 data-ad-slot="4489040778"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <!-- Features Section -->
+        <section class="features">
+            <h2 class="features-title">Why Use Our Image Resize Tool?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <svg class="feature-icon" style="color: #eab308;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
+                    </svg>
+                    <h3 class="feature-title">Precise Resizing</h3>
+                    <p class="feature-description">Resize your images to exact pixel dimensions while maintaining quality and clarity.</p>
+                </div>
+                <div class="feature-card">
+                    <svg class="feature-icon" style="color: #3b82f6;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                    <h3 class="feature-title">Secure Processing</h3>
+                    <p class="feature-description">All resizing happens in your browser. Your images are never uploaded to our servers.</p>
+                </div>
+                <div class="feature-card">
+                    <svg class="feature-icon" style="color: #10b981;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                    </svg>
+                    <h3 class="feature-title">Bulk Processing</h3>
+                    <p class="feature-description">Resize multiple images at once with the same settings to save time and effort.</p>
+                </div>
+                <div class="feature-card">
+                    <svg class="feature-icon" style="color: #8b5cf6;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <h3 class="feature-title">Multiple Formats</h3>
+                    <p class="feature-description">Support for JPG, PNG, SVG, and GIF formats with format-specific optimization.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ Section -->
+        <section class="faq">
+            <h2 class="faq-title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How does image resizing work?</span>
+                        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="faq-answer-text">Image resizing works by changing the number of pixels in an image to match your desired dimensions. Our tool uses high-quality algorithms to ensure the resized image maintains as much detail and clarity as possible while changing to your specified dimensions.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Will resizing affect the quality of my images?</span>
+                        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="faq-answer-text">When you resize an image, some quality loss is inevitable, especially when enlarging images. However, our tool uses advanced algorithms to minimize quality loss. Downscaling (making images smaller) generally maintains better quality than upscaling (making images larger).</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What does "maintain aspect ratio" mean?</span>
+                        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="faq-answer-text">Aspect ratio is the proportional relationship between an image's width and height. When you check "maintain aspect ratio" and change either the width or height, our tool automatically calculates the other dimension to keep the original proportions. This prevents your image from looking stretched or squished.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What image formats are supported?</span>
+                        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="faq-answer-text">Our tool supports the most common web image formats: JPEG/JPG, PNG, SVG, and GIF. Each format is resized using format-specific techniques to ensure optimal results.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is there a file size limit?</span>
+                        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="faq-answer-text">Since all processing happens in your browser, the file size limit depends on your device's memory. Generally, files up to 20MB should work fine on most devices. For very large images, you might experience slower performance.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is my data secure when using this tool?</span>
+                        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="faq-answer-text">Yes, your images are processed entirely in your browser and are never uploaded to our servers. This ensures complete privacy and security of your images.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Why would I need to resize my images?</span>
+                        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="faq-answer-text">There are many reasons to resize images: to fit specific dimensions for websites or social media platforms, to reduce file size for faster loading, to prepare images for printing, or to create thumbnails. Proper image sizing is essential for optimal performance and appearance across different devices and platforms.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Bottom Ad Banner -->
+        <div class="ad-banner ad-banner-bottom">
+            <!-- ad 1 -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-8952133365130199"
+                 data-ad-slot="4489040778"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; <span id="current-year"></span> Image Resize Tool. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // DOM Elements
+        const fileInput = document.getElementById('file-input');
+        const uploadArea = document.getElementById('upload-area');
+        const uploadPlaceholder = document.getElementById('upload-placeholder');
+        const bulkUploadPreview = document.getElementById('bulk-upload-preview');
+        const bulkImages = document.getElementById('bulk-images');
+        const originalInfo = document.getElementById('original-info');
+        const imageCount = document.getElementById('image-count');
+        
+        const previewPlaceholder = document.getElementById('preview-placeholder');
+        const resizingLoading = document.getElementById('resizing-loading');
+        const resizedPreview = document.getElementById('resized-preview');
+        const resizedInfo = document.getElementById('resized-info');
+        const originalDimensions = document.getElementById('original-dimensions');
+        const newDimensions = document.getElementById('new-dimensions');
+        
+        const widthInput = document.getElementById('width');
+        const heightInput = document.getElementById('height');
+        const maintainAspectRatio = document.getElementById('maintain-aspect-ratio');
+        const resizeAll = document.getElementById('resize-all');
+        const resizeButton = document.getElementById('resize-button');
+        const downloadButton = document.getElementById('download-button');
+        const progressFill = document.getElementById('progress-fill');
+        
+        // FAQ functionality
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+        
+        // Variables to store image data
+        let uploadedImages = [];
+        let currentImageIndex = 0;
+        let resizedImages = [];
+        
+        // Handle file upload
+        function handleFileUpload(files) {
+            if (!files || files.length === 0) return;
+            
+            // Add new files to the array
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (file.type.startsWith('image/')) {
+                    uploadedImages.push({
+                        file: file,
+                        originalWidth: 0,
+                        originalHeight: 0
+                    });
+                }
+            }
+            
+            // Update UI
+            updateBulkPreview();
+            
+            // Enable resize button if we have images
+            resizeButton.disabled = uploadedImages.length === 0;
+            
+            // Show original info
+            originalInfo.classList.remove('hidden');
+            imageCount.textContent = uploadedImages.length;
+            
+            // Load the first image for preview if we just added our first images
+            if (uploadedImages.length > 0 && currentImageIndex === 0) {
+                loadImageDimensions(0);
+            }
+        }
+        
+        // Update bulk preview
+        function updateBulkPreview() {
+            if (uploadedImages.length > 0) {
+                uploadPlaceholder.classList.add('hidden');
+                bulkUploadPreview.classList.remove('hidden');
+                
+                // Clear existing previews
+                bulkImages.innerHTML = '';
+                
+                // Add image previews (limit to first 12 for performance)
+                const displayCount = Math.min(uploadedImages.length, 12);
+                for (let i = 0; i < displayCount; i++) {
+                    const imageItem = document.createElement('div');
+                    imageItem.className = 'bulk-image-item';
+                    imageItem.dataset.index = i;
+                    
+                    const img = document.createElement('img');
+                    img.className = 'bulk-image-preview';
+                    img.src = URL.createObjectURL(uploadedImages[i].file);
+                    img.alt = `Image ${i + 1}`;
+                    
+                    const removeBtn = document.createElement('div');
+                    removeBtn.className = 'bulk-image-remove';
+                    removeBtn.innerHTML = '×';
+                    removeBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        removeImage(i);
+                    });
+                    
+                    imageItem.appendChild(img);
+                    imageItem.appendChild(removeBtn);
+                    
+                    // Add click event to select this image
+                    imageItem.addEventListener('click', () => {
+                        selectImage(i);
+                    });
+                    
+                    bulkImages.appendChild(imageItem);
+                }
+                
+                // Add count if there are more images
+                if (uploadedImages.length > 12) {
+                    const moreCount = document.createElement('div');
+                    moreCount.className = 'bulk-image-item';
+                    moreCount.style.display = 'flex';
+                    moreCount.style.alignItems = 'center';
+                    moreCount.style.justifyContent = 'center';
+                    moreCount.style.backgroundColor = '#f3f4f6';
+                    moreCount.innerHTML = `+${uploadedImages.length - 12} more`;
+                    bulkImages.appendChild(moreCount);
+                }
+            } else {
+                uploadPlaceholder.classList.remove('hidden');
+                bulkUploadPreview.classList.add('hidden');
+            }
+        }
+        
+
+
+
+//google adds
+
+
+(function() {
+    const adScript = document.createElement('script');
+    adScript.async = true;
+    adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8952133365130199';
+    adScript.crossOrigin = 'anonymous';
+    document.head.appendChild(adScript);
+    
+    // Initialize ads
+    window.addEventListener('load', function() {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    });
+})();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // Remove image from the array
+        function removeImage(index) {
+            uploadedImages.splice(index, 1);
+            
+            // Update current index if needed
+            if (currentImageIndex >= uploadedImages.length) {
+                currentImageIndex = Math.max(0, uploadedImages.length - 1);
+            }
+            
+            // Update UI
+            updateBulkPreview();
+            imageCount.textContent = uploadedImages.length;
+            
+            // Disable resize button if no images
+            resizeButton.disabled = uploadedImages.length === 0;
+            
+            // Hide original info if no images
+            if (uploadedImages.length === 0) {
+                originalInfo.classList.add('hidden');
+                resizedInfo.classList.add('hidden');
+                previewPlaceholder.classList.remove('hidden');
+                resizedPreview.classList.add('hidden');
+            } else {
+                loadImageDimensions(currentImageIndex);
+            }
+        }
+        
+        // Select an image for preview
+        function selectImage(index) {
+            currentImageIndex = index;
+            loadImageDimensions(index);
+        }
+        
+        // Load image dimensions
+        function loadImageDimensions(index) {
+            if (index < 0 || index >= uploadedImages.length) return;
+            
+            const imageData = uploadedImages[index];
+            const file = imageData.file;
+            
+            // Create an image object to get dimensions
+            const img = new Image();
+            img.onload = function() {
+                imageData.originalWidth = img.width;
+                imageData.originalHeight = img.height;
+                
+                // Update UI with dimensions
+                originalDimensions.textContent = `${img.width} × ${img.height}`;
+                
+                // Set input values if they're empty
+                if (!widthInput.value) widthInput.value = img.width;
+                if (!heightInput.value) heightInput.value = img.height;
+                
+                // Show preview
+                previewPlaceholder.classList.add('hidden');
+                resizedPreview.classList.remove('hidden');
+                resizedPreview.src = URL.createObjectURL(file);
+                resizedInfo.classList.remove('hidden');
+                
+                // Clear any previous resized image
+                downloadButton.disabled = true;
+            };
+            img.src = URL.createObjectURL(file);
+        }
+        
+        // Handle file input change
+        fileInput.addEventListener('change', (e) => {
+            handleFileUpload(e.target.files);
+        });
+        
+        // Handle drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('active');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('active');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('active');
+            handleFileUpload(e.dataTransfer.files);
+        });
+        
+        // Handle click on upload area
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        // Handle aspect ratio maintenance
+        widthInput.addEventListener('input', () => {
+            if (maintainAspectRatio.checked && currentImageIndex >= 0 && currentImageIndex < uploadedImages.length) {
+                const imageData = uploadedImages[currentImageIndex];
+                if (imageData.originalWidth > 0 && imageData.originalHeight > 0) {
+                    const aspectRatio = imageData.originalWidth / imageData.originalHeight;
+                    const newWidth = parseInt(widthInput.value) || 0;
+                    heightInput.value = Math.round(newWidth / aspectRatio);
+                }
+            }
+        });
+        
+        heightInput.addEventListener('input', () => {
+            if (maintainAspectRatio.checked && currentImageIndex >= 0 && currentImageIndex < uploadedImages.length) {
+                const imageData = uploadedImages[currentImageIndex];
+                if (imageData.originalWidth > 0 && imageData.originalHeight > 0) {
+                    const aspectRatio = imageData.originalWidth / imageData.originalHeight;
+                    const newHeight = parseInt(heightInput.value) || 0;
+                    widthInput.value = Math.round(newHeight * aspectRatio);
+                }
+            }
+        });
+        
+        // Resize image
+        resizeButton.addEventListener('click', async () => {
+            if (uploadedImages.length === 0) return;
+            
+            const newWidth = parseInt(widthInput.value);
+            const newHeight = parseInt(heightInput.value);
+            
+            if (!newWidth || !newHeight || newWidth <= 0 || newHeight <= 0) {
+                alert('Please enter valid width and height values.');
+                return;
+            }
+            
+            // Update UI
+            previewPlaceholder.classList.add('hidden');
+            resizedPreview.classList.add('hidden');
+            resizingLoading.classList.remove('hidden');
+            resizeButton.disabled = true;
+            
+            try {
+                // Determine which images to resize
+                const imagesToResize = resizeAll.checked ? uploadedImages : [uploadedImages[currentImageIndex]];
+                resizedImages = [];
+                
+                for (let i = 0; i < imagesToResize.length; i++) {
+                    // Update progress
+                    progressFill.style.width = `${(i / imagesToResize.length) * 100}%`;
+                    
+                    const imageData = imagesToResize[i];
+                    const file = imageData.file;
+                    
+                    // Create a canvas to resize the image
+                    const canvas = document.createElement('canvas');
+                    canvas.width = newWidth;
+                    canvas.height = newHeight;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Load the image
+                    const img = await createImageBitmap(file);
+                    
+                    // Draw the image on the canvas with the new dimensions
+                    ctx.drawImage(img, 0, 0, newWidth, newHeight);
+                    
+                    // Convert canvas to blob
+                    const blob = await new Promise(resolve => {
+                        canvas.toBlob(resolve, file.type);
+                    });
+                    
+                    // Create a new file with the resized image
+                    const resizedFile = new File([blob], file.name, {
+                        type: file.type,
+                        lastModified: new Date().getTime()
+                    });
+                    
+                    resizedImages.push(resizedFile);
+                    
+                    // If this is the current image, update the preview
+                    if (!resizeAll.checked || i === currentImageIndex) {
+                        resizedPreview.src = URL.createObjectURL(resizedFile);
+                    }
+                }
+                
+                // Update UI
+                resizingLoading.classList.add('hidden');
+                resizedPreview.classList.remove('hidden');
+                newDimensions.textContent = `${newWidth} × ${newHeight}`;
+                downloadButton.disabled = false;
+                resizeButton.disabled = false;
+                
+                // Complete progress bar
+                progressFill.style.width = '100%';
+                
+            } catch (error) {
+                console.error('Error resizing image:', error);
+                alert('Error resizing image. Please try again with a different image.');
+                resizingLoading.classList.add('hidden');
+                previewPlaceholder.classList.remove('hidden');
+                resizeButton.disabled = false;
+            }
+        });
+        
+        // Download resized image(s)
+        downloadButton.addEventListener('click', () => {
+            if (resizedImages.length === 0) return;
+            
+            if (resizedImages.length === 1) {
+                // Single image download
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(resizedImages[0]);
+                
+                // Create a filename with dimensions
+                const originalName = resizedImages[0].name;
+                const extension = originalName.split('.').pop();
+                const baseName = originalName.replace(`.${extension}`, '');
+                const width = parseInt(widthInput.value);
+                const height = parseInt(heightInput.value);
+                link.download = `${baseName}-${width}x${height}.${extension}`;
+                
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                // Multiple images - create a zip file
+                alert('Multiple images selected. Each image will download individually.');
+                
+                // Download each image with a slight delay to prevent browser issues
+                resizedImages.forEach((file, index) => {
+                    setTimeout(() => {
+                        const link = document.createElement('a');
+                        link.href = URL.createObjectURL(file);
+                        
+                        // Create a filename with dimensions
+                        const originalName = file.name;
+                        const extension = originalName.split('.').pop();
+                        const baseName = originalName.replace(`.${extension}`, '');
+                        const width = parseInt(widthInput.value);
+                        const height = parseInt(heightInput.value);
+                        link.download = `${baseName}-${width}x${height}.${extension}`;
+                        
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    }, index * 500);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
