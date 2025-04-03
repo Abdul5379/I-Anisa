@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development FAQ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap');
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes colorChange {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+        
+        /* Particles */
+        @keyframes moveParticle {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(10px, 10px); }
+            50% { transform: translate(0, 20px); }
+            75% { transform: translate(-10px, 10px); }
+            100% { transform: translate(0, 0); }
+        }
+        
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --accent: #fd79a8;
+            --dark: #2d3436;
+            --light: #f9f9f9;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+            --info: #0984e3;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f0f2f5;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Particle Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: moveParticle 15s infinite linear;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe, #fd79a8, #00cec9);
+            background-size: 300% 300%;
+            animation: colorChange 15s ease infinite;
+            color: white;
+            text-align: center;
+            padding: 4rem 0 6rem;
+            margin-bottom: 4rem;
+            border-radius: 0 0 30px 30px;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .header-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .header-shape {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        .shape1 {
+            width: 150px;
+            height: 150px;
+            top: -30px;
+            left: 10%;
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        .shape2 {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            right: 10%;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        .shape3 {
+            width: 120px;
+            height: 120px;
+            bottom: -30px;
+            left: 20%;
+            animation: float 10s infinite ease-in-out;
+        }
+        
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1.5s ease-out;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transition: var(--transition);
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(45deg);
+        }
+        
+        .theme-toggle i {
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+        
+        /* Search Bar */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 0.5rem;
+            margin-bottom: 3rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            z-index: 10;
+            animation: fadeIn 1.8s ease-out;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+            padding: 0.5rem;
+            scrollbar-width: none; /* Firefox */
+        }
+        
+        .nav-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Edge */
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: nowrap;
+        }
+        
+        nav li {
+            margin: 0 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        nav li:hover {
+            transform: translateY(-3px);
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 12px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        
+        nav a i {
+            font-size: 1.2rem;
+        }
+        
+        nav a:hover {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+        
+        nav a.active {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+        
+        /* Main Content */
+        main {
+            position: relative;
+            z-index: 1;
+        }
+        
+        section {
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(0,0,0,0.05);
+        }
+        
+        .section-icon {
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+        
+        #basics .section-icon { background: var(--primary); }
+        #html .section-icon { background: #e44d26; }
+        #css .section-icon { background: #264de4; }
+        #javascript .section-icon { background: #f7df1e; color: #333; }
+        #responsive .section-icon { background: #61dafb; color: #333; }
+        #frameworks .section-icon { background: #41b883; }
+        
+        h2 {
+            color: var(--dark);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            margin: 0;
+            position: relative;
+        }
+        
+        /* FAQ Items */
+        .faq-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .faq-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .faq-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            color: white;
+            padding: 1.2rem 1.5rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+        
+        .faq-question::after {
+            content: '\f107';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            transition: var(--transition);
+        }
+        
+        .faq-question.active::after {
+            transform: rotate(180deg);
+        }
+        
+        #basics .faq-question { background: linear-gradient(135deg, #6c5ce7, #a29bfe); }
+        #html .faq-question { background: linear-gradient(135deg, #e44d26, #f16529); }
+        #css .faq-question { background: linear-gradient(135deg, #264de4, #2965f1); }
+        #javascript .faq-question { background: linear-gradient(135deg, #f7df1e, #f4dc00); color: #333; }
+        #responsive .faq-question { background: linear-gradient(135deg, #61dafb, #00b0ff); color: #333; }
+        #frameworks .faq-question { background: linear-gradient(135deg, #41b883, #34495e); }
+        
+        .faq-answer {
+            line-height: 1.8;
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+        }
+        
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 1000px;
+        }
+        
+        .faq-answer ul, .faq-answer ol {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .faq-answer li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Code Blocks */
+        code {
+            background-color: #f0f0f0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', monospace;
+            color: #e83e8c;
+            font-size: 0.9rem;
+        }
+        
+        pre {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 1.2rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.2rem 0;
+            position: relative;
+        }
+        
+        pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+            font-size: 0.9rem;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #abb2bf;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+        
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 3rem;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            border-radius: 30px 30px 0 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .footer-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .footer-shape {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        .footer-shape-1 {
+            width: 100px;
+            height: 100px;
+            top: -30px;
+            left: 10%;
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        .footer-shape-2 {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            right: 10%;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: white;
+            color: var(--primary);
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 100;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            animation: bounce 2s infinite;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.6);
+        }
+        
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #1a1a2e;
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode nav,
+        body.dark-mode .faq-item,
+        body.dark-mode .search-bar {
+            background-color: #16213e;
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode nav a {
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .theme-toggle {
+            background: #16213e;
+        }
+        
+        body.dark-mode .theme-toggle i {
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode h2,
+        body.dark-mode .faq-answer {
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode code {
+            background-color: #2a2a3a;
+            color: #ff79c6;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .faq-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="header-shapes">
+                <div class="header-shape shape1"></div>
+                <div class="header-shape shape2"></div>
+                <div class="header-shape shape3"></div>
+            </div>
+            <div class="header-content">
+                <h1>Web Development FAQ</h1>
+                <p class="subtitle">Your comprehensive guide to web development concepts, technologies, and best practices</p>
+                
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search for topics..." id="searchInput">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+            </div>
+        </header>
+
+        <nav>
+            <div class="nav-container">
+                <ul>
+                    <li><a href="#basics" class="active"><i class="fas fa-globe"></i> Web Basics</a></li>
+                    <li><a href="#html"><i class="fab fa-html5"></i> HTML</a></li>
+                    <li><a href="#css"><i class="fab fa-css3-alt"></i> CSS</a></li>
+                    <li><a href="#javascript"><i class="fab fa-js"></i> JavaScript</a></li>
+                    <li><a href="#responsive"><i class="fas fa-mobile-alt"></i> Responsive</a></li>
+                    <li><a href="#frameworks"><i class="fas fa-layer-group"></i> Frameworks</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main>
+            <section id="basics">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h2>Web Development Basics</h2>
+                </div>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">What is web development?</div>
+                        <div class="faq-answer">
+                            Web development is the process of building and maintaining websites. It involves various aspects like web design, web publishing, web programming, and database management. Web development can range from creating a simple single static page to complex web applications, electronic businesses, and social network services.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">What are the main components of web development?</div>
+                        <div class="faq-answer">
+                            Web development typically consists of three main components:
+                            <ul>
+                                <li><strong>Frontend (Client-side)</strong>: What users see and interact with, built using HTML, CSS, and JavaScript.</li>
+                                <li><strong>Backend (Server-side)</strong>: The server, application, and database that work behind the scenes to deliver data to the frontend.</li>
+                                <li><strong>Database</strong>: Where all the website data is stored and retrieved from.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">How do I start learning web development?</div>
+                        <div class="faq-answer">
+                            To start learning web development:
+                            <ol>
+                                <li>Learn HTML and CSS basics</li>
+                                <li>Learn JavaScript fundamentals</li>
+                                <li>Understand how the web works (HTTP, browsers, servers)</li>
+                                <li>Build small projects to practice your skills</li>
+                                <li>Learn a backend language (like Node.js, Python, PHP)</li>
+                                <li>Learn about databases</li>
+                                <li>Explore frameworks and libraries</li>
+                            </ol>
+                            There are many free resources available online, including tutorials, documentation, and interactive coding platforms.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="html">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <h2>HTML (HyperText Markup Language)</h2>
+                </div>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">What is HTML?</div>
+                        <div class="faq-answer">
+                            HTML (HyperText Markup Language) is the standard markup language for creating web pages. It describes the structure of a web page using elements represented by tags. HTML elements tell the browser how to display the content.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">What is the basic structure of an HTML document?</div>
+                        <div class="faq-answer">
+                            The basic structure of an HTML document includes:
+                            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Document Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Content goes here --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code><button class="copy-btn">Copy</button></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">What are semantic HTML elements?</div>
+                        <div class="faq-answer">
+                            Semantic HTML elements clearly describe their meaning to both the browser and the developer. Examples include <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;nav&gt;</code>, and <code>&lt;aside&gt;</code>. Using semantic elements improves accessibility, SEO, and code readability.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="css">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fab fa-css3-alt"></i>
+                    </div>
+                    <h2>CSS (Cascading Style Sheets)</h2>
+                </div>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">What is CSS?</div>
+                        <div class="faq-answer">
+                            CSS (Cascading Style Sheets) is a style sheet language used for describing the presentation of a document written in HTML. CSS describes how elements should be rendered on screen, on paper, in speech, or on other media.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">What are the different ways to include CSS in HTML?</div>
+                        <div class="faq-answer">
+                            There are three ways to include CSS in HTML:
+                            <ol>
+                                <li><strong>Inline CSS</strong>: Using the style attribute in HTML elements</li>
+                                <li><strong>Internal CSS</strong>: Using the <code>&lt;style&gt;</code> element in the <code>&lt;head&gt;</code> section</li>
+                                <li><strong>External CSS</strong>: Linking to an external CSS file using the <code>&lt;link&gt;</code> element</li>
+                            </ol>
+                            External CSS is generally the preferred method for larger websites as it separates content from presentation and makes maintenance easier.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">What is the CSS Box Model?</div>
+                        <div class="faq-answer">
+                            The CSS Box Model is a fundamental concept that describes how elements are rendered on a web page. It consists of:
+                            <ul>
+                                <li><strong>Content</strong>: The actual content of the element</li>
+                                <li><strong>Padding</strong>: The space between the content and the border</li>
+                                <li><strong>Border</strong>: The line that surrounds the padding</li>
+                                <li><strong>Margin</strong>: The space outside the border</li>
+                            </ul>
+                            Understanding the box model is essential for controlling layout and spacing in CSS.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="javascript">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fab fa-js"></i>
+                    </div>
+                    <h2>JavaScript</h2>
+                </div>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">What is JavaScript?</div>
+                        <div class="faq-answer">
+                            JavaScript is a programming language that enables interactive web pages. It's an essential part of web applications and is supported by all modern browsers. JavaScript allows you to add dynamic behavior, manipulate the DOM, handle events, and communicate with servers.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">What is the DOM?</div>
+                        <div class="faq-answer">
+                            The DOM (Document Object Model) is a programming interface for HTML documents. It represents the page so that programs can change the document structure, style, and content. The DOM represents the document as nodes and objects, allowing JavaScript to interact with the page.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">What are JavaScript frameworks and libraries?</div>
+                        <div class="faq-answer">
+                            JavaScript frameworks and libraries are collections of pre-written code that make development easier and faster. 
+                            <ul>
+                                <li><strong>Libraries</strong> (like jQuery, React) provide functions and methods that you can use in your code.</li>
+                                <li><strong>Frameworks</strong> (like Angular, Vue.js) provide a structure for your application and dictate how you should organize your code.</li>
+                            </ul>
+                            Popular JavaScript frameworks and libraries include React, Angular, Vue.js, jQuery, and Node.js (for server-side JavaScript).
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="responsive">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h2>Responsive Web Design</h2>
+                </div>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">What is responsive web design?</div>
+                        <div class="faq-answer">
+                            Responsive web design is an approach to web design that makes web pages render well on a variety of devices and window or screen sizes. It uses CSS techniques like fluid grids, flexible images, and media queries to adapt the layout to the viewing environment.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">What are media queries?</div>
+                        <div class="faq-answer">
+                            Media queries are CSS techniques that allow you to apply different styles based on various device characteristics, primarily the screen width. They are a key component of responsive design.
+                            <pre><code>@media screen and (max-width: 768px) {
+    /* Styles for screens up to 768px wide */
+    body {
+        font-size: 14px;
+    }
+}</code><button class="copy-btn">Copy</button></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">What is mobile-first design?</div>
+                        <div class="faq-answer">
+                            Mobile-first design is an approach where you design for mobile devices first, then progressively enhance the design for larger screens. This approach ensures that the core content and functionality work well on small screens, and additional features are added as screen size increases. It typically uses min-width media queries rather than max-width.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="frameworks">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h2>Web Development Frameworks</h2>
+                </div>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">What are web development frameworks?</div>
+                        <div class="faq-answer">
+                            Web development frameworks are software packages that provide a foundation for web application development. They often include tools and libraries that simplify common tasks, enforce best practices, and speed up development.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">What are some popular frontend frameworks?</div>
+                        <div class="faq-answer">
+                            Popular frontend frameworks include:
+                            <ul>
+                                <li><strong>React</strong>: A JavaScript library for building user interfaces</li>
+                                <li><strong>Angular</strong>: A platform and framework for building single-page client applications</li>
+                                <li><strong>Vue.js</strong>: A progressive framework for building user interfaces</li>
+                                <li><strong>Svelte</strong>: A compiler that converts your components into highly efficient JavaScript</li>
+                                <li><strong>Bootstrap</strong>: A CSS framework focused on responsive, mobile-first front-end development</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">What are some popular backend frameworks?</div>
+                        <div class="faq-answer">
+                            Popular backend frameworks include:
+                            <ul>
+                                <li><strong>Node.js/Express</strong>: JavaScript runtime and framework for server-side applications</li>
+                                <li><strong>Django</strong>: A high-level Python web framework</li>
+                                <li><strong>Ruby on Rails</strong>: A server-side web application framework written in Ruby</li>
+                                <li><strong>Laravel</strong>: A PHP web application framework</li>
+                                <li><strong>Spring Boot</strong>: A Java-based framework for building web applications</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-shapes">
+                <div class="footer-shape footer-shape-1"></div>
+                <div class="footer-shape footer-shape-2"></div>
+            </div>
+            <div class="footer-content">
+                <p>&copy; 2025 Web Development FAQ. All rights reserved.</p>
+                <p>This website provides information about web development technologies and best practices.</p>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Create particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const colors = ['#6c5ce7', '#a29bfe', '#fd79a8', '#00cec9'];
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                
+                // Style
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.backgroundColor = color;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Scroll animations
+        function handleScrollAnimations() {
+            const sections = document.querySelectorAll('section');
+            const faqItems = document.querySelectorAll('.faq-item');
+            const backToTop = document.getElementById('backToTop');
+            
+            // Check if element is in viewport
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+                    rect.bottom >= 0
+                );
+            }
+            
+            // Handle scroll
+            function onScroll() {
+                // Animate sections
+                sections.forEach(section => {
+                    if (isInViewport(section)) {
+                        section.classList.add('visible');
+                    }
+                });
+                
+                // Animate FAQ items
+                faqItems.forEach(item => {
+                    if (isInViewport(item)) {
+                        item.classList.add('visible');
+                    }
+                });
+                
+                // Show/hide back to top button
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+                
+                // Update active nav link
+                updateActiveNavLink();
+            }
+            
+            window.addEventListener('scroll', onScroll);
+            // Initial check
+            onScroll();
+        }
+        
+        // Update active navigation link based on scroll position
+        function updateActiveNavLink() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.pageYOffset >= sectionTop - 200) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        // FAQ toggle
+        function setupFAQToggle() {
+            const questions = document.querySelectorAll('.faq-question');
+            
+            questions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const isActive = this.classList.contains('active');
+                    
+                    // Close all other FAQs
+                    questions.forEach(q => {
+                        if (q !== question) {
+                            q.classList.remove('active');
+                            q.nextElementSibling.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current FAQ
+                    if (!isActive) {
+                        this.classList.add('active');
+                        answer.classList.add('active');
+                    } else {
+                        this.classList.remove('active');
+                        answer.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Open first FAQ in each section by default
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const firstQuestion = section.querySelector('.faq-question');
+                if (firstQuestion) {
+                    firstQuestion.classList.add('active');
+                    firstQuestion.nextElementSibling.classList.add('active');
+                }
+            });
+        }
+        
+        // Search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                faqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                    
+                    if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+        
+        // Theme toggle
+        function setupThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            const icon = themeToggle.querySelector('i');
+            
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark-mode');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                
+                if (body.classList.contains('dark-mode')) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        }
+        
+        // Copy code functionality
+        function setupCodeCopy() {
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            
+            copyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const codeBlock = this.previousSibling;
+                    const textToCopy = codeBlock.textContent;
+                    
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        // Change button text temporarily
+                        const originalText = this.textContent;
+                        this.textContent = 'Copied!';
+                        
+                        setTimeout(() => {
+                            this.textContent = originalText;
+                        }, 2000);
+                    });
+                });
+            });
+        }
+        
+        // Scroll to top
+        function setupScrollToTop() {
+            const backToTop = document.getElementById('backToTop');
+            
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // Navigation scroll
+        function setupNavScroll() {
+            const navLinks = document.querySelectorAll('nav a');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active class
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        }
+        
+        // Initialize all functions when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            handleScrollAnimations();
+            setupFAQToggle();
+            setupSearch();
+            setupThemeToggle();
+            setupCodeCopy();
+            setupScrollToTop();
+            setupNavScroll();
+        });
+    </script>
+</body>
+</html>
