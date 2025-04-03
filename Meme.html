@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Meme Generator - Create Custom Memes Easily</title>
+    <meta name="description" content="Create high-quality custom memes with our AI-powered meme generator. Customize text, images, and use trending templates.">
+    <meta name="keywords" content="meme generator, AI memes, custom memes, meme maker, funny memes">
+    <meta property="og:title" content="AI Meme Generator">
+    <meta property="og:description" content="Create high-quality custom memes with our AI-powered meme generator.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com">
+    <meta property="og:image" content="https://yourdomain.com/meme-generator-preview.jpg">
+    <link rel="canonical" href="https://yourdomain.com">
+    <style>
+        :root {
+            --primary-color: #4a6cf7;
+            --secondary-color: #f97316;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --gray-color: #64748b;
+            --border-color: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark-color);
+        }
+        
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray-color);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: #3b5bdb;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #ea580c;
+        }
+        
+        .meme-generator {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .generator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .meme-preview {
+            position: relative;
+            background-color: #f8fafc;
+            border-radius: 5px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+        
+        .meme-canvas-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        #memeCanvas {
+            max-width: 100%;
+            max-height: 400px;
+            display: block;
+            margin: 0 auto;
+            border: 1px solid var(--border-color);
+        }
+        
+        .meme-text {
+            position: absolute;
+            color: white;
+            font-weight: bold;
+            text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
+            font-size: 30px;
+            text-align: center;
+            width: 100%;
+            cursor: move;
+            user-select: none;
+        }
+        
+        .top-text {
+            top: 10px;
+        }
+        
+        .bottom-text {
+            bottom: 10px;
+        }
+        
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .control-group input[type="text"],
+        .control-group select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .control-group input[type="file"] {
+            width: 100%;
+        }
+        
+        .control-group input[type="color"] {
+            width: 50px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .color-picker-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .ai-suggestions {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f9ff;
+            border-radius: 5px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .ai-suggestions h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .suggestion-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .suggestion-chip {
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .suggestion-chip:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .templates-section {
+            margin-top: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .template-item {
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .template-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .template-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .ad-container {
+            margin: 40px 0;
+            padding: 20px;
+            background-color: #f8fafc;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .ad-placeholder {
+            background-color: #e2e8f0;
+            padding: 40px;
+            border-radius: 5px;
+            color: var(--gray-color);
+            font-weight: 500;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #334155;
+            color: #cbd5e1;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .generator-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav {
+                margin-top: 15px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 15px;
+                right: 20px;
+            }
+            
+            .nav-menu {
+                display: none;
+                width: 100%;
+            }
+            
+            .nav-menu.active {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .templates-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+
+
+       
+
+
+
+
+        /* Text Formatting Controls */
+.formatting-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.btn-text-format {
+    padding: 8px 15px;
+    background-color: #e2e8f0;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.btn-text-format:hover {
+    background-color: #cbd5e1;
+}
+
+.btn-text-format.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.font-style-select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* Opacity slider styling to match existing range inputs */
+#textOpacity {
+    width: 100%;
+    margin-top: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .formatting-buttons {
+        flex-wrap: wrap;
+    }
+    
+    .btn-text-format {
+        padding: 8px 12px;
+    }
+}
+ 
+
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">Meme<span>AI</span></a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                <nav class="nav-menu" id="navMenu">
+                    <ul>
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contect.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+
+
+
+
+
+    <section class="hero">
+        <div class="container">
+            <h1>Create Hilarious Memes with AI</h1>
+            <p>Our AI-powered meme generator helps you create high-quality, customizable memes in seconds. Choose from trending templates or upload your own images.</p>
+            <a href="#generator" class="btn">Create Meme Now</a>
+        </div>
+    </section>
+
+    <!-- Ad Container (Top) -->
+    <div class="container">
+        <div class="ad-container">
+            <div class="ad-placeholder" id="topAd">
+                <!-- Google AdSense Ad Code will go here -->
+                Google AdSense Ad
+            </div>
+        </div>
+    </div>
+
+    <section id="generator" class="container">
+        <div class="meme-generator">
+            <div class="generator-grid">
+                <div class="meme-preview">
+                    <div class="meme-canvas-container">
+                        <canvas id="memeCanvas" width="500" height="500"></canvas>
+                    </div>
+                </div>
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="templateSelect">Choose a Template</label>
+                        <select id="templateSelect">
+                            <option value="">Select a template</option>
+                            <option value="drake">Drake Hotline Bling</option>
+                            <option value="distracted">Distracted Boyfriend</option>
+                            <option value="button">Two Buttons</option>
+                            <option value="change">Change My Mind</option>
+                            <option value="doge">Doge</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="imageUpload">Or Upload Your Own Image</label>
+                        <input type="file" id="imageUpload" accept="image/*">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="topTextInput">Top Text</label>
+                        <input type="text" id="topTextInput" placeholder="Enter top text">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="bottomTextInput">Bottom Text</label>
+                        <input type="text" id="bottomTextInput" placeholder="Enter bottom text">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="textColor">Text Color</label>
+                        <div class="color-picker-container">
+                            <input type="color" id="textColor" value="#ffffff">
+                            <span id="textColorValue">#ffffff</span>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="fontSize">Font Size</label>
+                        <input type="range" id="fontSize" min="20" max="60" value="30">
+                        <span id="fontSizeValue">30px</span>
+                    </div>
+
+
+
+
+
+
+
+                    <div class="controls">
+                        <!-- Existing controls... -->
+                        <div class="control-group">
+                            <label for="fontSize">Font Size</label>
+                            <input type="range" id="fontSize" min="20" max="60" value="30">
+                            <span id="fontSizeValue">30px</span>
+                        </div>
+                    
+                        <!-- New Text Formatting Controls -->
+                        <div class="control-group">
+                            <label>Text Formatting</label>
+                            <div class="formatting-buttons">
+                                <button id="boldBtn" class="btn-text-format" title="Bold">
+                                    <strong>B</strong>
+                                </button>
+                                <button id="underlineBtn" class="btn-text-format" title="Underline">
+                                    <u>U</u>
+                                </button>
+                                <button id="copyBtn" class="btn-text-format" title="Copy Text">
+                                    Copy
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <div class="control-group">
+                            <label for="textOpacity">Text Opacity</label>
+                            <div class="color-picker-container">
+                                <input type="range" id="textOpacity" min="0.1" max="1" step="0.1" value="1">
+                                <span id="textOpacityValue">100%</span>
+                            </div>
+                        </div>
+                    
+                        <div class="control-group">
+                            <label for="fontStyle">Font Style</label>
+                            <select id="fontStyle" class="font-style-select">
+                                <option value="Impact">Impact (Default)</option>
+                                <option value="Arial">Arial</option>
+                                <option value="Comic Sans MS">Comic Sans</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                                <option value="Courier New">Courier New</option>
+                            </select>
+                        </div>
+                    
+                        <div class="ai-suggestions">
+                            <h3>AI Suggestions</h3>
+                            <p>Try these trending captions and styles:</p>
+                            <div class="suggestion-chips">
+                                <span class="suggestion-chip" data-text="Me trying to code">Me trying to code</span>
+                                <span class="suggestion-chip" data-text="When the coffee kicks in">When the coffee kicks in</span>
+                                <span class="suggestion-chip" data-text="Nobody: Absolutely nobody:">Nobody: Absolutely nobody:</span>
+                                <span class="suggestion-chip" data-text="That moment when">That moment when</span>
+                                <span class="suggestion-chip" data-text="My brain during an exam">My brain during an exam</span>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button id="generateBtn" class="btn">Generate Meme</button>
+                            <button id="downloadBtn" class="btn btn-secondary">Download Meme</button>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    
+                    <div class="ai-suggestions">
+                        <h3>AI Suggestions</h3>
+                        <p>Try these trending captions and styles:</p>
+                        <div class="suggestion-chips">
+                            <span class="suggestion-chip" data-text="Me trying to code">Me trying to code</span>
+                            <span class="suggestion-chip" data-text="When the coffee kicks in">When the coffee kicks in</span>
+                            <span class="suggestion-chip" data-text="Nobody: Absolutely nobody:">Nobody: Absolutely nobody:</span>
+                            <span class="suggestion-chip" data-text="That moment when">That moment when</span>
+                            <span class="suggestion-chip" data-text="My brain during an exam">My brain during an exam</span>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button id="generateBtn" class="btn">Generate Meme</button>
+                        <button id="downloadBtn" class="btn btn-secondary">Download Meme</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Container (Middle) -->
+    <div class="container">
+        <div class="ad-container">
+            <div class="ad-placeholder" id="middleAd">
+                <!-- Google AdSense Ad Code will go here -->
+                Google AdSense Ad
+            </div>
+        </div>
+    </div>
+
+    <section id="templates" class="container templates-section">
+        <h2 class="section-title">Popular Meme Templates</h2>
+        <div class="templates-grid">
+            <div class="template-item" data-template="drake">
+                <img src="https://i.imgflip.com/30b1gx.jpg" alt="Drake Hotline Bling Meme Template">
+            </div>
+            <div class="template-item" data-template="distracted">
+                <img src="https://i.imgflip.com/1ur9b0.jpg" alt="Distracted Boyfriend Meme Template">
+            </div>
+            <div class="template-item" data-template="button">
+                <img src="https://i.imgflip.com/1g8my4.jpg" alt="Two Buttons Meme Template">
+            </div>
+            <div class="template-item" data-template="change">
+                <img src="https://i.imgflip.com/24y43o.jpg" alt="Change My Mind Meme Template">
+            </div>
+            <div class="template-item" data-template="doge">
+                <img src="https://i.imgflip.com/4t0m5.jpg" alt="Doge Meme Template">
+            </div>
+            <div class="template-item" data-template="cat">
+                <img src="https://i.imgflip.com/2hgfw.jpg" alt="Grumpy Cat Meme Template">
+            </div>
+            <div class="template-item" data-template="fine">
+                <img src="https://i.imgflip.com/3oevdk.jpg" alt="This is Fine Meme Template">
+            </div>
+            <div class="template-item" data-template="expand">
+                <img src="https://i.imgflip.com/1jwhww.jpg" alt="Expanding Brain Meme Template">
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Container (Bottom) -->
+    <div class="container">
+        <div class="ad-container">
+            <div class="ad-placeholder" id="bottomAd">
+                <!-- Google AdSense Ad Code will go here -->
+                Google AdSense Ad
+            </div>
+        </div>
+    </div>
+
+    <section id="about" class="container">
+        <div class="meme-generator">
+            <h2 class="section-title">About MemeAI</h2>
+            <p>MemeAI is an advanced meme generation tool powered by artificial intelligence. Our platform allows you to create high-quality, customizable memes in seconds. Whether you're a meme enthusiast or a social media marketer, MemeAI provides the tools you need to create engaging and shareable content.</p>
+            <p>Our AI technology analyzes trending memes and suggests popular captions and formats to help you create content that resonates with your audience. With a wide selection of templates and customization options, you can create unique memes that stand out.</p>
+        </div>
+    </section>
+
+    <section id="contact" class="container">
+        <div class="meme-generator">
+            <h2 class="section-title">Contact Us</h2>
+            <p>Have questions or suggestions? We'd love to hear from you!</p>
+            <form id="contactForm">
+                <div class="control-group">
+                    <label for="nameInput">Name</label>
+                    <input type="text" id="nameInput" placeholder="Your name">
+                </div>
+                <div class="control-group">
+                    <label for="emailInput">Email</label>
+                    <input type="email" id="emailInput" placeholder="Your email">
+                </div>
+                <div class="control-group">
+                    <label for="messageInput">Message</label>
+                    <textarea id="messageInput" rows="5" placeholder="Your message"></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MemeAI</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contect.html">Contact</a></li>
+                        <li><a href="t c.html">Privacy Policy</a></li>
+                        <li><a href="t c.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Features</h3>
+                    <ul>
+                        <li><a href="Meme.html">Meme Generator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="fqa.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect</h3>
+                    <ul>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=61574188626043">Facebook</a></li>
+                        <li><a href="https://www.instagram.com/abduluvagi/">Instagram</a></li>
+                        <li><a href="#">Reddit</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 MemeAI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+
+
+
+       // Mobile menu toggle
+document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+    document.getElementById('navMenu').classList.toggle('active');
+});
+
+// Template data
+const templateData = {
+    drake: {
+        url: 'https://i.imgflip.com/30b1gx.jpg',
+        width: 1200,
+        height: 1200
+    },
+    distracted: {
+        url: 'https://i.imgflip.com/1ur9b0.jpg',
+        width: 1200,
+        height: 800
+    },
+    button: {
+        url: 'https://i.imgflip.com/1g8my4.jpg',
+        width: 600,
+        height: 908
+    },
+    change: {
+        url: 'https://i.imgflip.com/24y43o.jpg',
+        width: 482,
+        height: 361
+    },
+    doge: {
+        url: 'https://i.imgflip.com/4t0m5.jpg',
+        width: 620,
+        height: 620
+    },
+    cat: {
+        url: 'https://i.imgflip.com/2hgfw.jpg',
+        width: 500,
+        height: 617
+    },
+    fine: {
+        url: 'https://i.imgflip.com/3oevdk.jpg',
+        width: 580,
+        height: 282
+    },
+    expand: {
+        url: 'https://i.imgflip.com/1jwhww.jpg',
+        width: 857,
+        height: 1202
+    }
+};
+
+// AI suggestion data
+const aiSuggestions = {
+    drake: ['Me avoiding responsibilities', 'Using Stack Overflow / Reading documentation'],
+    distracted: ['Me / New JavaScript framework / My current project'],
+    button: ['Fix bugs / Add new features', 'Sleep / One more episode'],
+    change: ['HTML is a programming language', 'CSS is easy'],
+    doge: ['Such code', 'Very bug', 'Wow'],
+    cat: ['When someone touches my code', 'Monday mornings be like'],
+    fine: ['When your code works but you don\'t know why', 'Debugging for 5 hours'],
+    expand: ['console.log()', 'Using a debugger', 'Reading documentation', 'Understanding the problem']
+};
+
+// Canvas and context
+const canvas = document.getElementById('memeCanvas');
+const ctx = canvas.getContext('2d');
+
+// Form elements
+const templateSelect = document.getElementById('templateSelect');
+const imageUpload = document.getElementById('imageUpload');
+const topTextInput = document.getElementById('topTextInput');
+const bottomTextInput = document.getElementById('bottomTextInput');
+const textColorInput = document.getElementById('textColor');
+const textColorValue = document.getElementById('textColorValue');
+const fontSizeInput = document.getElementById('fontSize');
+const fontSizeValue = document.getElementById('fontSizeValue');
+const generateBtn = document.getElementById('generateBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+
+// Current meme state
+let currentImage = null;
+let currentTemplate = '';
+let fontSize = 30;
+let textColor = '#ffffff';
+
+// Initialize canvas with placeholder
+function initCanvas() {
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#64748b';
+    ctx.font = '20px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('Select a template or upload an image', canvas.width / 2, canvas.height / 2);
+}
+
+// Load template image
+function loadTemplate(templateName) {
+    if (templateData[templateName]) {
+        currentTemplate = templateName;
+        const template = templateData[templateName];
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = function() {
+            currentImage = img;
+            canvas.width = template.width;
+            canvas.height = template.height;
+            drawMeme();
+            
+            // Suggest AI captions
+            if (aiSuggestions[templateName]) {
+                const suggestions = aiSuggestions[templateName];
+                if (suggestions.length >= 2) {
+                    topTextInput.value = suggestions[0];
+                    bottomTextInput.value = suggestions[1];
+                    drawMeme();
+                }
+            }
+        };
+        img.src = template.url;
+    }
+}
+
+// Draw meme on canvas
+function drawMeme() {
+    if (!currentImage) return;
+    
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw image
+    ctx.drawImage(currentImage, 0, 0, canvas.width, canvas.height);
+    
+    // Set text properties
+    ctx.fillStyle = textColor;
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 2;
+    ctx.font = `${fontSize}px Impact`;
+    ctx.textAlign = 'center';
+    
+    // Draw top text
+    const topText = topTextInput.value;
+    if (topText) {
+        drawText(topText, canvas.width / 2, fontSize + 10);
+    }
+    
+    // Draw bottom text
+    const bottomText = bottomTextInput.value;
+    if (bottomText) {
+        drawText(bottomText, canvas.width / 2, canvas.height - 20);
+    }
+}
+
+// Draw text with stroke
+function drawText(text, x, y) {
+    ctx.strokeText(text, x, y);
+    ctx.fillText(text, x, y);
+}
+
+// Handle template selection
+templateSelect.addEventListener('change', function() {
+    const templateName = this.value;
+    if (templateName) {
+        loadTemplate(templateName);
+        imageUpload.value = ''; // Clear file input when selecting template
+    }
+});
+
+// Handle image upload
+imageUpload.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                currentImage = img;
+                // Set canvas dimensions to match image
+                canvas.width = img.width;
+                canvas.height = img.height;
+                drawMeme();
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+        currentTemplate = '';
+        templateSelect.value = ''; // Clear template select when uploading image
+    }
+});
+
+// Handle text inputs
+topTextInput.addEventListener('input', drawMeme);
+bottomTextInput.addEventListener('input', drawMeme);
+
+// Handle text color
+textColorInput.addEventListener('input', function() {
+    textColor = this.value;
+    textColorValue.textContent = this.value;
+    drawMeme();
+});
+
+
+
+
+
+
+
+
+
+
+
+// Handle font size
+fontSizeInput.addEventListener('input', function() {
+    fontSize = parseInt(this.value);
+    fontSizeValue.textContent = `${fontSize}px`;
+    drawMeme();
+});
+
+// Handle AI suggestion chips
+document.querySelectorAll('.suggestion-chip').forEach(chip => {
+    chip.addEventListener('click', function() {
+        const text = this.getAttribute('data-text');
+        topTextInput.value = text;
+        drawMeme();
+    });
+});
+
+// Handle template items
+document.querySelectorAll('.template-item').forEach(item => {
+    item.addEventListener('click', function() {
+        const templateName = this.getAttribute('data-template');
+        templateSelect.value = templateName;
+        loadTemplate(templateName);
+        imageUpload.value = ''; // Clear file input when selecting template
+    });
+});
+
+// Generate meme button
+generateBtn.addEventListener('click', function() {
+    if (!currentImage) {
+        alert('Please select a template or upload an image first');
+        return;
+    }
+    drawMeme();
+    alert('Meme generated successfully!');
+});
+
+// Download meme button
+downloadBtn.addEventListener('click', function() {
+    if (!currentImage) {
+        alert('Please generate a meme first');
+        return;
+    }
+    
+    const link = document.createElement('a');
+    link.download = 'meme.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+});
+
+// AI enhancement function (simulated)
+function enhanceMemeWithAI() {
+    if (!currentImage) {
+        alert('Please generate a meme first');
+        return;
+    }
+    
+    // Simulate AI processing
+    setTimeout(() => {
+        // Add a slight filter effect
+        ctx.globalAlpha = 0.9;
+        drawMeme();
+        ctx.globalAlpha = 1.0;
+        
+        // Show a success message
+        alert('Meme enhanced with AI! Your meme is ready to download.');
+    }, 1000);
+}
+
+// Contact form submission
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Thank you for your message! We will get back to you soon.');
+    this.reset();
+});
+
+// Initialize the canvas
+initCanvas();
+
+// Google AdSense Integration (commented out - replace with your Ad Unit ID)
+
+(function() {
+    const adScript = document.createElement('script');
+    adScript.async = true;
+    adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8952133365130199';
+    adScript.crossOrigin = 'anonymous';
+    document.head.appendChild(adScript);
+    
+    // Initialize ads
+    window.addEventListener('load', function() {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    });
+})();
+
+
+// AI-based trending suggestions (simulated)
+function updateTrendingSuggestions() {
+    // In a real implementation, this would fetch from an API
+    const trendingMemes = [
+        'When you finally fix that bug',
+        'Me explaining to my boss why the project is delayed',
+        'My code when I run it vs when I show it to someone',
+        'That feeling when your code works on the first try',
+        'When someone asks if you tested your code'
+    ];
+    
+    // Update suggestion chips
+    const suggestionContainer = document.querySelector('.suggestion-chips');
+    suggestionContainer.innerHTML = '';
+    
+    trendingMemes.forEach(meme => {
+        const chip = document.createElement('span');
+        chip.className = 'suggestion-chip';
+        chip.setAttribute('data-text', meme);
+        chip.textContent = meme;
+        chip.addEventListener('click', function() {
+            topTextInput.value = this.getAttribute('data-text');
+            drawMeme();
+        });
+        suggestionContainer.appendChild(chip);
+    });
+}
+
+// Update trending suggestions every 5 minutes
+updateTrendingSuggestions();
+setInterval(updateTrendingSuggestions, 5 * 60 * 1000);
+
+        
+
+        // Add these new variables at the top with other variables
+let isBold = false;
+let isUnderline = false;
+let textOpacity = 1;
+let fontStyle = "Impact";
+
+// ... (existing code remains same)
+
+// Add these new functions just before the initCanvas() call
+document.getElementById('boldBtn').addEventListener('click', function() {
+    isBold = !isBold;
+    this.style.background = isBold ? '#cbd5e1' : '#e2e8f0';
+    drawMeme();
+});
+
+document.getElementById('underlineBtn').addEventListener('click', function() {
+    isUnderline = !isUnderline;
+    this.style.background = isUnderline ? '#cbd5e1' : '#e2e8f0';
+    drawMeme();
+});
+
+document.getElementById('textOpacity').addEventListener('input', function() {
+    textOpacity = parseFloat(this.value);
+    document.getElementById('textOpacityValue').textContent = `${Math.round(textOpacity * 100)}%`;
+    drawMeme();
+});
+
+document.getElementById('fontStyle').addEventListener('change', function() {
+    fontStyle = this.value;
+    drawMeme();
+});
+
+document.getElementById('copyBtn').addEventListener('click', function() {
+    const textToCopy = `${topTextInput.value}\n${bottomTextInput.value}`;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        alert('Text copied to clipboard!');
+    });
+});
+
+// Update the drawText function (replace existing one)
+function drawText(text, x, y) {
+    ctx.save();
+    ctx.globalAlpha = textOpacity;
+    
+    if (isBold) {
+        ctx.lineWidth = 4;
+    } else {
+        ctx.lineWidth = 2;
+    }
+    
+    ctx.strokeText(text, x, y);
+    ctx.fillText(text, x, y);
+    
+    if (isUnderline) {
+        const textWidth = ctx.measureText(text).width;
+        ctx.strokeStyle = textColor;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(x - textWidth/2, y + 5);
+        ctx.lineTo(x + textWidth/2, y + 5);
+        ctx.stroke();
+    }
+    
+    ctx.restore();
+}
+
+// Update the drawMeme function (replace existing one)
+function drawMeme() {
+    if (!currentImage) return;
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(currentImage, 0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = textColor;
+    ctx.strokeStyle = 'black';
+    ctx.font = `${isBold ? 'bold ' : ''}${fontSize}px ${fontStyle}`;
+    ctx.textAlign = 'center';
+    
+    const topText = topTextInput.value;
+    if (topText) {
+        drawText(topText, canvas.width / 2, fontSize + 10);
+    }
+    
+    const bottomText = bottomTextInput.value;
+    if (bottomText) {
+        drawText(bottomText, canvas.width / 2, canvas.height - 20);
+    }
+}
+
+
+
+
+
+// Initialize the canvas (keep this at the end)
+initCanvas();
+
+
+
+
+
+    </script>
+</body>
+</html>
