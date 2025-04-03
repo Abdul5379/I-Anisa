@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions - Abdul Rehman</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3a86ff;
+            --secondary-color: #ff006e;
+            --dark-color: #1a1a2e;
+            --light-color: #ffffff;
+            --gray-color: #f8f9fa;
+            --text-color: #333333;
+            --border-radius: 10px;
+            --box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--gray-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            padding: 1rem 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 0;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .hero-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            text-align: center;
+        }
+        
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        
+        .hero-section p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: #555;
+        }
+        
+        .terms-section {
+            padding: 5rem 0;
+        }
+        
+        .terms-container {
+            background-color: var(--light-color);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .section-title {
+            margin-bottom: 2rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .terms-content h3 {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            margin: 2rem 0 1rem;
+        }
+        
+        .terms-content p, .terms-content ul, .terms-content ol {
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+        
+        .terms-content ul, .terms-content ol {
+            padding-left: 2rem;
+        }
+        
+        .terms-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .terms-content a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .terms-content a:hover {
+            text-decoration: underline;
+        }
+        
+        .owner-info {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            background-color: var(--gray-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin: 3rem 0;
+        }
+        
+        .owner-image {
+            flex-shrink: 0;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid var(--primary-color);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .owner-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .owner-details h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+        
+        .owner-details p {
+            color: #555;
+            margin-bottom: 1rem;
+        }
+        
+        .last-updated {
+            font-style: italic;
+            color: #777;
+            margin-top: 3rem;
+            text-align: right;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: var(--transition);
+            opacity: 0.8;
+        }
+        
+        .back-to-top:hover {
+            opacity: 1;
+            transform: translateY(-5px);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #ccc;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            
+            .terms-container {
+                padding: 2rem;
+            }
+            
+            .owner-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Anisa AR</div>
+                <ul class="nav-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contect.html">Contact</a></li>
+                    <li><a href="t c.html">Terms</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="container">
+            <h1>Terms & Conditions</h1>
+            <p>Please read these terms and conditions carefully before using our website and services.</p>
+        </div>
+    </section>
+
+    <main>
+        <section class="terms-section">
+            <div class="container">
+                <div class="terms-container">
+                    <div class="section-title">
+                        <h2>Terms and Conditions</h2>
+                        <p>Last updated: April 1, 2025</p>
+                    </div>
+                    
+                    <div class="owner-info">
+                        <div class="owner-image">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WIN_20250331_02_04_00_Pro-svpLXUusRHaXFo5JDN53Cyz2f9wK5v.png" alt="Abdul Rehman">
+                        </div>
+                        <div class="owner-details">
+                            <h3>Abdul Rehman</h3>
+                            <p>Website Owner & Service Provider</p>
+                            <p>These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you") and Abdul Rehman ("we," "us" or "our"), concerning your access to and use of our website and services.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="terms-content">
+                        <h3>1. Agreement to Terms</h3>
+                        <p>By accessing or using our website, you agree to be bound by these Terms and Conditions. If you disagree with any part of these terms, you may not access the website or use our services.</p>
+                        
+                        <h3>2. Intellectual Property Rights</h3>
+                        <p>Unless otherwise stated, we own the intellectual property rights for all material on this website. All intellectual property rights are reserved. You may view and/or print pages from the website for your own personal use subject to restrictions set in these terms and conditions.</p>
+                        
+                        <p>You must not:</p>
+                        <ul>
+                            <li>Republish material from this website</li>
+                            <li>Sell, rent, or sub-license material from this website</li>
+                            <li>Reproduce, duplicate, or copy material from this website</li>
+                            <li>Redistribute content from this website (unless content is specifically made for redistribution)</li>
+                        </ul>
+                        
+                        <h3>3. User Content</h3>
+                        <p>In these Terms and Conditions, "User Content" shall mean any audio, video, text, images, or other material you choose to display on this website. By displaying your User Content, you grant us a non-exclusive, worldwide, irrevocable, royalty-free, sublicensable license to use, reproduce, adapt, publish, translate, and distribute it in any and all media.</p>
+                        
+                        <p>Your User Content must be your own and must not be infringing on any third party's rights. We reserve the right to remove any of your content from this website at any time without notice.</p>
+                        
+                        <h3>4. No Warranties</h3>
+                        <p>This website is provided "as is," with all faults, and we express no representations or warranties of any kind related to this website or the materials contained on this website. Nothing contained on this website shall be interpreted as advising you.</p>
+                        
+                        <h3>5. Limitation of Liability</h3>
+                        <p>In no event shall we, nor any of our directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from:</p>
+                        <ol>
+                            <li>Your access to or use of or inability to access or use the website;</li>
+                            <li>Any conduct or content of any third party on the website;</li>
+                            <li>Any content obtained from the website; and</li>
+                            <li>Unauthorized access, use, or alteration of your transmissions or content, whether based on warranty, contract, tort (including negligence), or any other legal theory, whether or not we have been informed of the possibility of such damage.</li>
+                        </ol>
+                        
+                        <h3>6. Indemnification</h3>
+                        <p>You agree to defend, indemnify, and hold us harmless, including our subsidiaries, affiliates, and all of our respective officers, agents, partners, and employees, from and against any loss, damage, liability, claim, or demand, including reasonable attorneys' fees and expenses, made by any third party due to or arising out of:</p>
+                        <ol>
+                            <li>Your User Content;</li>
+                            <li>Your use of the website;</li>
+                            <li>Your breach of these Terms and Conditions;</li>
+                            <li>Any breach of your representations and warranties set forth in these Terms and Conditions;</li>
+                            <li>Your violation of the rights of a third party, including but not limited to intellectual property rights; or</li>
+                            <li>Any overt harmful act toward any other user of the website with whom you connected via the website.</li>
+                        </ol>
+                        
+                        <h3>7. Severability</h3>
+                        <p>If any provision of these Terms and Conditions is found to be unenforceable or invalid under any applicable law, such unenforceability or invalidity shall not render these Terms and Conditions unenforceable or invalid as a whole, and such provisions shall be deleted without affecting the remaining provisions herein.</p>
+                        
+                        <h3>8. Variation of Terms</h3>
+                        <p>We are permitted to revise these Terms and Conditions at any time as we see fit, and by using this website, you are expected to review these Terms and Conditions regularly to ensure you understand all terms and conditions governing the use of this website.</p>
+                        
+                        <h3>9. Entire Agreement</h3>
+                        <p>These Terms and Conditions, including any legal notices and disclaimers contained on this website, constitute the entire agreement between us and you in relation to your use of this website, and supersede all prior agreements and understandings with respect to the same.</p>
+                        
+                        <h3>10. Governing Law & Jurisdiction</h3>
+                        <p>These Terms and Conditions will be governed by and construed in accordance with the laws of the jurisdiction in which we operate, and you submit to the non-exclusive jurisdiction of the courts located in that jurisdiction for the resolution of any disputes.</p>
+                        
+                        <p class="last-updated">These terms and conditions were last updated on April 1, 2025.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Abdul Rehman</h3>
+                    <p>Providing quality services and products with a commitment to excellence and customer satisfaction.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contect.html">Contact</a></li>
+                        <li><a href="t c.html">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> AbdulRehmanroyal532@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +92 3088527532</li>
+                        <li><i class="fas fa-map-marker-alt"></i> New York, NY</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Abdul Rehman. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Back to top button functionality
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.style.display = 'flex';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
