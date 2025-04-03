@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iLoveAPI - e-Signature API</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a9396;
+            --primary-dark: #087f82;
+            --secondary: #f8f9fa;
+            --text-dark: #333;
+            --text-light: #6c757d;
+            --white: #fff;
+            --border: #e9ecef;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--text-dark);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+
+
+        
+        .login-btn {
+            margin-right: -200px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+        
+        .register-btn {
+            background-color: var(--primary-color);
+            color: rgb(0, 0, 0);
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .register-btn:hover {
+            background-color: #007aa3;
+        }
+
+
+
+
+        
+        /* Hero Section */
+        .hero {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 80px 0;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IGlkPSJwYXR0ZXJuLWJhY2tncm91bmQiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InRyYW5zcGFyZW50Ij48L3JlY3Q+PHBhdGggZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIiBkPSJNLTEwLDEwIGwyMCwtMjAgTTAsMzAgbDMwLC0zMCBNMjAsNTAgbDMwLC0zMCI+PC9wYXRoPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSI+PC9yZWN0Pjwvc3ZnPg==');
+            background-size: cover;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .code-bg {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .code-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            padding: 30px;
+            border-radius: 8px;
+            background-color: var(--white);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .feature-card p {
+            color: var(--text-light);
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(10, 147, 150, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        /* Workflow Section */
+        .workflow {
+            padding: 80px 0;
+            background-color: var(--secondary);
+        }
+        
+        .workflow-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 1.8rem;
+        }
+        
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .workflow-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .workflow-card h3 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .workflow-card h3 .card-icon {
+            width: 36px;
+            height: 36px;
+            background-color: rgba(10, 147, 150, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .pricing-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .pricing-content {
+            flex: 1;
+            padding-right: 50px;
+        }
+        
+        .pricing-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .pricing-content p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+        
+        .pricing-image {
+            flex: 1;
+            text-align: right;
+        }
+        
+        .pricing-image img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-left: auto;
+            max-width: 450px;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+        }
+        
+        /* Security Section */
+        .security {
+            padding: 60px 0;
+            background-color: var(--secondary);
+            text-align: center;
+        }
+        
+        .security h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .security p {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: var(--text-light);
+        }
+        
+        .security-icons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+        }
+        
+        .security-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .security-icon i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .security-icon span {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            color: var(--white);
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IGlkPSJwYXR0ZXJuLWJhY2tncm91bmQiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InRyYW5zcGFyZW50Ij48L3JlY3Q+PHBhdGggZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIgZD0iTS0xMCwxMCBsMjAsLTIwIE0wLDMwIGwzMCwtMzAgTTIwLDUwIGwzMCwtMzAiPjwvcGF0aD48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjcGF0dGVybikiPjwvcmVjdD48L3N2Zz4=');
+            opacity: 0.8;
+        }
+        
+        .cta-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-content {
+            flex: 1;
+        }
+        
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta p {
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-image {
+            flex: 1;
+            text-align: right;
+            position: relative;
+        }
+        
+        .cta-image::before {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+        
+        .cta-image img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-left: auto;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+            max-width: 450px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--white);
+            padding: 60px 0 20px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .footer-logos {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .footer-logos img {
+            height: 30px;
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .workflow-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-container {
+                flex-direction: column;
+            }
+            
+            .pricing-content {
+                padding-right: 0;
+                margin-bottom: 40px;
+                text-align: center;
+            }
+            
+            .cta-container {
+                flex-direction: column;
+            }
+            
+            .cta-content {
+                text-align: center;
+                margin-bottom: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .code-bg {
+                display: none;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">i<span>❤️</span>Anasi</a>
+                <ul class="nav-links">
+                    <li><a href="Compress.html">COMPRESS</a></li>
+                    <li><a href="Meme.html">MEME</a></li>
+                    <li><a href="Rseize.html">RESIZE</a></li>
+                    <li><a href="BG Remove.html">BG REMOVE</a></li>
+                    
+                    <li><a href="contect.html">CONTACT</a></li>
+                </ul>
+                <a href="login.html" class="login-btn">Login</a>
+                <a href="sign up .html" class="register-btn">Register</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>A robust and easy to implement e-Signature API</h1>
+                <p>Automate the signing process with legally binding e-signatures</p>
+                <a href="#" class="btn">Get Started</a>
+            </div>
+            <div class="code-bg">
+                <div class="code-text">
+const signature = new iLoveAPI.Signature({
+  document: 'contract.pdf',
+  signers: [
+    {
+      email: 'john@example.com',
+      name: 'John Doe',
+      fields: [
+        {
+          type: 'signature',
+          page: 1,
+          x: 100,
+          y: 200
+        }
+      ]
+    }
+  ]
+});
+
+signature.send()
+  .then(response => {
+    console.log('Document sent for signing!');
+  });
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why choose the iLoveAPI?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Powerful and Secure</h3>
+                    <p>Our e-Signature API is built with security and compliance in mind. We follow the highest industry standards to ensure your data is safe.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Built for scalability</h3>
+                    <p>Easily scale your e-signature implementation from hundreds to millions of documents. Our infrastructure ensures reliable service.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Easy to integrate</h3>
+                    <p>With our well-documented API and SDKs for major programming languages, integration is quick and straightforward.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Section -->
+    <section class="workflow">
+        <div class="container">
+            <h2 class="workflow-title">Everything you need for integrating secure eSignature workflows</h2>
+            <div class="workflow-grid">
+                <div class="workflow-card">
+                    <h3>
+                        <span class="card-icon"><i class="fas fa-cogs"></i></span>
+                        Core features
+                    </h3>
+                    <ul class="feature-list">
+                        <li><strong>REST API</strong> - Simple and elegant request/response model with intuitive endpoints</li>
+                        <li><strong>Branding</strong> - Customize the signing experience to match your brand identity</li>
+                        <li><strong>Open fields</strong> - Allow signers to add text fields to the document, sign anywhere</li>
+                        <li><strong>SMS Authentication</strong> - Add an extra layer of security with SMS verification</li>
+                    </ul>
+                </div>
+                <div class="workflow-card">
+                    <h3>
+                        <span class="card-icon"><i class="fas fa-archive"></i></span>
+                        Document archiving
+                    </h3>
+                    <ul class="feature-list">
+                        <li><strong>PDFs</strong> - All documents are stored as PDFs for long-term preservation</li>
+                        <li><strong>Hashes and documents</strong> - We automatically generate a digital fingerprint for each document</li>
+                    </ul>
+                </div>
+                <div class="workflow-card">
+                    <h3>
+                        <span class="card-icon"><i class="fas fa-code-branch"></i></span>
+                        Development
+                    </h3>
+                    <ul class="feature-list">
+                        <li><strong>SDKs for popular languages</strong> - PHP, Python, Ruby, Java, Node.js, and more</li>
+                        <li><strong>Technical support</strong> - Our expert Technical Support Engineers are ready to assist you</li>
+                        <li><strong>API Reference</strong> - Comprehensive documentation with examples and guides</li>
+                    </ul>
+                </div>
+                <div class="workflow-card">
+                    <h3>
+                        <span class="card-icon"><i class="fas fa-certificate"></i></span>
+                        Certification
+                    </h3>
+                    <ul class="feature-list">
+                        <li><strong>eIDAS/GDPR Compliance</strong> - Fully compliant with the European Union's eIDAS</li>
+                        <li><strong>ISO27001</strong> - Certified under the ISO 27001 standard for information security management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing">
+        <div class="container pricing-container">
+            <div class="pricing-content">
+                <h2>Pricing</h2>
+                <p>iLoveAPI offers grouped packages at a competitive price. Choose a plan that suits your needs and get you up and running with ease.</p>
+                <a href="#" class="btn">View Plans</a>
+            </div>
+            <div class="pricing-image">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-dyBfjjl77zywvjEG3GUDlnvbGRcESK.png" alt="Person working on laptop with pricing plans">
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Section -->
+    <section class="security">
+        <div class="container">
+            <h2>The security of your data is our #1 priority</h2>
+            <p>All files uploaded to iLoveAPI are encrypted using Hypertext Transfer Protocol Secure (HTTPS). iLoveAPI does not access, use, analyze or store any processed data. If you want to know more about iLoveAPI's data collection, read our Privacy Policy.</p>
+            <div class="security-icons">
+                <div class="security-icon">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>PDF</span>
+                </div>
+                <div class="security-icon">
+                    <i class="fas fa-lock"></i>
+                    <span>Secure</span>
+                </div>
+                <div class="security-icon">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Protected</span>
+                </div>
+                <div class="security-icon">
+                    <i class="fas fa-key"></i>
+                    <span>Encrypted</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container cta-container">
+            <div class="cta-content">
+                <h2>Learn how to easily implement Digital Signatures in your project</h2>
+                <a href="#" class="btn">Get Started</a>
+            </div>
+            <div class="cta-image">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-PxPRnNl8sLRdvjKdCOcPilfwppU1Ub.png" alt="Person working on laptop implementing digital signatures">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Our API Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="pdf_rest_anisa.html">PDF REST API Guides</a></li>
+                        <li><a href="image_rest_anisa.html">Image REST API Guides</a></li>
+                        <li><a href="signature_rest_Anisa.html">Signature REST API Guides</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="blog.html">Our Story</a></li>
+                        <li><a href="pdf_rest_anisa.html">Go to ilovepdf.com</a></li>
+                        <li><a href="image_rest_anisa.html">Go to iloveimg.com</a></li>
+                        <li><a href="t c.html">Privacy policy</a></li>
+                        <li><a href="t c.html">Terms & Conditions</a></li>
+                        <li><a href="contect.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-logos">
+               
+            </div>
+            <div class="footer-bottom">
+                <p>© iLove Anisa 2025 - Your Digital Signature API</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
