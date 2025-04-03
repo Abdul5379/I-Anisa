@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - I ❤️ Anisa</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .container {
+      display: flex;
+      flex: 1;
+    }
+    
+    .form-side {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+    }
+    
+    .form-container {
+      width: 100%;
+      max-width: 420px;
+    }
+    
+    .logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+      align-items: center;
+    }
+    
+    .logo-text {
+      font-size: 1.875rem;
+      font-weight: bold;
+    }
+    
+    .heart-icon {
+      margin: 0 0.25rem;
+      color: #26B6A5;
+    }
+    
+    h1 {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: #333;
+    }
+    
+    .form-group {
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.375rem;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: transparent;
+      box-shadow: 0 0 0 2px #26B6A5;
+    }
+    
+    .form-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+    }
+    
+    .checkbox-container {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    
+    .checkbox {
+      width: 1rem;
+      height: 1rem;
+      margin-top: 0.125rem;
+      accent-color: #26B6A5;
+    }
+    
+    .checkbox-label {
+      margin-left: 0.5rem;
+      font-size: 0.875rem;
+      color: #4b5563;
+    }
+    
+    .link {
+      color: #26B6A5;
+      text-decoration: none;
+    }
+    
+    .link:hover {
+      text-decoration: underline;
+    }
+    
+    .btn {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background-color: #26B6A5;
+      color: white;
+      border: none;
+      border-radius: 0.375rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .btn:hover {
+      background-color: #229e8f;
+    }
+    
+    .btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px white, 0 0 0 4px #26B6A5;
+    }
+    
+    .login-link {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.875rem;
+      color: #4b5563;
+    }
+    
+    .image-side {
+      display: none;
+      width: 50%;
+      background-color: #f9fafb;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    
+    .image-content {
+      max-width: 28rem;
+      padding: 0 2rem;
+    }
+    
+    .image-container {
+      width: 100%;
+      height: 16rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .image-heading {
+      font-size: 1.875rem;
+      font-weight: bold;
+      color: #1f2937;
+    }
+    
+    @media (min-width: 1024px) {
+      .form-side {
+        width: 50%;
+      }
+      
+      .image-side {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Left side - Form -->
+    <div class="form-side">
+      <div class="form-container">
+        <!-- Logo -->
+        <div class="logo">
+          <span class="logo-text">I</span>
+          <span class="heart-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19.5 12.572L12 19.5L4.5 12.572C2.5 10.75 2.5 7.5 4.5 5.5C6.5 3.5 9.5 3.5 11.5 5.5L12 6L12.5 5.5C14.5 3.5 17.5 3.5 19.5 5.5C21.5 7.5 21.5 10.75 19.5 12.572Z" 
+                fill="#26B6A5" stroke="#26B6A5" stroke-width="1.5"/>
+            </svg>
+          </span>
+          <span class="logo-text">Anisa</span>
+        </div>
+        
+        <h1>Create new account</h1>
+        
+        <!-- Form -->
+        <form>
+          <div class="form-group">
+            <i class="form-icon fas fa-user"></i>
+            <input type="text" class="form-control" placeholder="Name">
+          </div>
+          
+          <div class="form-group">
+            <i class="form-icon fas fa-envelope"></i>
+            <input type="email" class="form-control" placeholder="Email">
+          </div>
+          
+          <div class="form-group">
+            <i class="form-icon fas fa-lock"></i>
+            <input type="password" class="form-control" placeholder="Password">
+          </div>
+          
+          <div class="checkbox-container">
+            <input type="checkbox" id="terms" class="checkbox">
+            <label for="terms" class="checkbox-label">
+              I accept <a href="#" class="link">Terms & Conditions</a> and <a href="#" class="link">Legal & Privacy</a>
+            </label>
+          </div>
+          
+          <button type="submit" class="btn">Register</button>
+        </form>
+        
+        <p class="login-link">
+          Already member? <a href="login.html" class="link">Log in</a>.
+        </p>
+      </div>
+    </div>
+    
+    <!-- Right side - Image -->
+    <div class="image-side">
+      <div class="image-content">
+        <div class="image-container">
+          <!-- PDF Illustration -->
+          <svg width="300" height="200" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Dashboard UI -->
+            <rect x="50" y="30" width="250" height="160" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+            
+            <!-- Sidebar -->
+            <rect x="50" y="30" width="60" height="160" fill="#F9FAFB"/>
+            <rect x="60" y="45" width="40" height="6" rx="3" fill="#F87171" fill-opacity="0.3"/>
+            <rect x="60" y="65" width="40" height="6" rx="3" fill="#F87171" fill-opacity="0.3"/>
+            <rect x="60" y="85" width="40" height="6" rx="3" fill="#F87171" fill-opacity="0.3"/>
+            <rect x="60" y="105" width="40" height="6" rx="3" fill="#F87171" fill-opacity="0.3"/>
+            <rect x="60" y="125" width="40" height="6" rx="3" fill="#F87171" fill-opacity="0.3"/>
+            <rect x="60" y="145" width="40" height="6" rx="3" fill="#F87171" fill-opacity="0.3"/>
+            
+            <!-- Main content -->
+            <rect x="120" y="45" width="170" height="10" rx="2" fill="#F87171" fill-opacity="0.3"/>
+            <rect x="120" y="65" width="140" height="6" rx="3" fill="#E5E7EB"/>
+            <rect x="120" y="80" width="170" height="40" rx="2" fill="#F9FAFB"/>
+            <rect x="130" y="90" width="100" height="6" rx="3" fill="#F87171" fill-opacity="0.2"/>
+            <rect x="130" y="105" width="80" height="6" rx="3" fill="#E5E7EB"/>
+            
+            <rect x="120" y="130" width="170" height="10" rx="2" fill="#F87171" fill-opacity="0.3"/>
+            <rect x="120" y="150" width="140" height="6" rx="3" fill="#E5E7EB"/>
+            <rect x="120" y="165" width="60" height="15" rx="2" fill="#F87171" fill-opacity="0.2"/>
+            
+            <!-- PDF Document -->
+            <g transform="translate(320, 140) rotate(15)">
+              <rect x="0" y="0" width="70" height="90" fill="#FFFFFF" stroke="#F87171" stroke-width="1.5"/>
+              <path d="M0 0 L70 0 L70 15 L0 15 Z" fill="#F87171"/>
+              <text x="25" y="10" font-size="10" fill="white" font-weight="bold">PDF</text>
+              <rect x="10" y="25" width="50" height="2" fill="#E5E7EB"/>
+              <rect x="10" y="35" width="50" height="2" fill="#E5E7EB"/>
+              <rect x="10" y="45" width="50" height="2" fill="#E5E7EB"/>
+              <rect x="10" y="55" width="50" height="2" fill="#E5E7EB"/>
+              <rect x="10" y="65" width="30" height="2" fill="#E5E7EB"/>
+            </g>
+            
+            <!-- UI Elements -->
+            <g transform="translate(280, 60)">
+              <rect x="0" y="0" width="20" height="20" rx="2" fill="#4ADE80"/>
+              <rect x="25" y="0" width="20" height="20" rx="2" fill="#4ADE80"/>
+              <rect x="0" y="25" width="20" height="20" rx="2" fill="#4ADE80"/>
+              <rect x="25" y="25" width="20" height="20" rx="2" fill="#4ADE80"/>
+            </g>
+            
+            <g transform="translate(350, 100)">
+              <rect x="0" y="0" width="20" height="20" rx="10" fill="#A855F7"/>
+              <rect x="25" y="0" width="20" height="20" rx="2" fill="#A855F7"/>
+              <rect x="0" y="25" width="20" height="20" rx="2" fill="#A855F7"/>
+              <rect x="25" y="25" width="20" height="20" rx="10" fill="#A855F7"/>
+            </g>
+            
+            <!-- Small PDF icon -->
+            <g transform="translate(380, 180)">
+              <rect x="0" y="0" width="30" height="40" fill="#FFFFFF" stroke="#F87171" stroke-width="1.5"/>
+              <path d="M0 0 L30 0 L30 8 L0 8 Z" fill="#F87171"/>
+            </g>
+          </svg>
+        </div>
+        <h2 class="image-heading">
+          Develop your own PDF solution with minimal coding
+        </h2>
+      </div>
+    </div>
+  </div>
+  <script>
+  // server.js
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// MongoDB Connection
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/anisa_app', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('MongoDB connection error:', err));
+
+// User Model
+const UserSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    lowercase: true,
+    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 6
+  },
+  agreedToTerms: {
+    type: Boolean,
+    required: true,
+    validate: {
+      validator: function(v) {
+        return v === true;
+      },
+      message: 'You must accept the terms and conditions'
+    }
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+// Hash password before saving
+UserSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) return next();
+  
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
+const User = mongoose.model('User', UserSchema);
+
+// Routes
+app.post('/api/signup', async (req, res) => {
+  try {
+    const { name, email, password, agreedToTerms } = req.body;
+
+    // Basic validation
+    if (!name || !email || !password || agreedToTerms === undefined) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already in use' });
+    }
+
+    // Create new user
+    const user = new User({
+      name,
+      email,
+      password,
+      agreedToTerms
+    });
+
+    await user.save();
+
+    // In a real app, you would generate a JWT token here and send it back
+    res.status(201).json({ 
+      message: 'User created successfully',
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email
+      }
+    });
+  } catch (err) {
+    console.error('Signup error:', err);
+    res.status(500).json({ message: 'Server error during signup' });
+  }
+});
+
+// Serve static files in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+</script>
+
+ 
+
+</body>
+</html>
